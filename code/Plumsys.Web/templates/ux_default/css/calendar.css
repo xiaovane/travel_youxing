@@ -1,0 +1,34 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+/*旅游线路样式*/
+#main{/**/}
+
+a{ text-decoration:none;}
+/*线路详情页行程日历*/
+.calendar{border: 1px solid #CCC;border-radius: 3px;margin: 0;overflow: hidden;padding: 10px 12px;width:460px;}
+.calendar .outer{width: 460px;overflow: hidden;}
+.calendar table{background: #FFF;border-collapse: separate;border-spacing: 3px;display: inline;float: left;margin-right: 10px;width: 462px;}
+.calendar .week th{background: #B1B1B1;color: #FFF;height: 26px;line-height: 26px;overflow: hidden;width: 63px;text-align: center;}
+.calendar .week th.weekEnd{background: #2A98DA;}
+.calendar .month th div{background: #FFF;border-bottom: 1px solid #D5D5D5;box-shadow: 0 1px 2px #DDD;color: #999;font: bold 16px/22px "微软雅黑","宋体",Arial;height: 22px;margin-bottom: 6px;overflow: hidden;padding-bottom: 5px;}
+.calendar .month th .prevMonth,.calendar .month th .nextMonth{float: left;width: 63px;}
+.calendar .month th .dates{float: left;width: 330px;text-align: center;}
+.calendar .month th .dates em{font: bold 16px/22px Arial,Helvetica,sans-serif;}
+.calendar .month th a{background: url(../images/calendarbg.gif) no-repeat 0 0;display: inline-block;height: 22px;width: 63px;overflow: hidden;}
+.calendar .month th a.prev{background-position: 0 0;}
+.calendar .month th a.prev:hover{background-position: 0 -22px;}
+.calendar .month th a.prev0{background-position: 0 -44px;cursor: not-allowed;}
+.calendar .month th a.next{background-position: 0 -66px;}
+.calendar .month th a.next:hover{background-position: 0 -88px;}
+.calendar .month th a.next0{background-position: 0 -110px;cursor: not-allowed;}
+.calendar td{border-radius: 3px 3px 0 3px;height:33px;line-height: 14px;width: 33px;text-align: center;vertical-align: middle;overflow: hidden;position: relative;}
+.calendar td.cur{background-position: right -269px;}
+.calendar td.hover{background-position: right -202px;cursor: pointer;}
+.calendar td em{font: 18px/1.5 Arial; font-weight:bold; position:absolute;top:0px;right:2px;}
+.calendar td em.noc{color: #A09696;}
+.calendar td em.yes{color: rgb(250, 19, 155);}
+.calendar td em.sss{top:30px;font-size: 14px;}
+.calendar td em.money{color: #F60;font-weight: bold;font-size: 14px;}
+.calendar .nl{ font-size:8px; color:#03F;left:-15px;top:5px;}
+.calendar td.curnot{background-position: right -269px;cursor: no-drop;}

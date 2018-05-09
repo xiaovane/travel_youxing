@@ -1,0 +1,564 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>优行旅游</title>
+    <meta name="keywords" content="{site.seo_keyword}" />
+    <meta name="description" content="{site.seo_description}" />
+    <link href="<%templateskin%>/css/index.css" rel="stylesheet" type="text/css" />
+    <link href="<%templateskin%>/css/style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" charset="utf-8" src="{config.webpath}scripts/jquery/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="<%templateskin%>/js/jquery.flexslider-min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="<%templateskin%>/js/common.js"></script>
+
+</head>
+<body>
+    <div class="wrap">
+        <div class="Head">
+            <div class="Navi">
+                <div class="MainPage">
+                    <div class="Logo">
+                        <a title="logo" href="http://www.youxing.com/"
+                           target="_self"><img alt="优行网" src="<%templateskin%>/images/logoadd.png" /></a>
+                    </div>
+                    <div class="LeftNavi">
+                        <div class="nav">
+                            <div class="c-wrapper">
+                                <div class="serchbox">
+                                    <div class="tab-view">
+                                        <div class="searchtype" data-role="head">
+                                            <ul>
+                                                <li data-role="tab" data-target="tab-a">跟团游</li>
+                                                <li data-role="tab" data-target="tab-b">自由行</li>
+                                                <li data-role="tab" data-target="tab-c">酒店</li>
+                                                <li data-role="tab" data-target="tab-d">门票</li>
+                                                <li data-role="tab" data-target="tab-e">玩乐</li>
+                                                <li data-role="tab" data-target="tab-f">通讯</li>
+                                            </ul>
+                                        </div>
+                                        <div class="searchtypeconnent" data-role="body">
+                                            <div data-role="tab-content" data-id="tab-a">
+                                                <div class="ml20 fsize14">
+                                                    <div class="chufa">出发地：</div>
+                                                    <div class="mudi">目的地：</div>
+                                                </div>
+                                                <div class="ml20 fsize14">
+                                                    <div class="chufa">
+                                                        <input type="text" class="inputchufa" placeholder="请输入出发地" value="" />
+                                                    </div>
+                                                    <div class="mudi">
+                                                        <input type="text" class="inputmudi" placeholder="请输入目的地" value="" />
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                                <div class="searchbotton ml20 mt10 fsize14">
+                                                    <div class="searchbottondetail floatR">
+                                                        <input type="button" value="搜索" />
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                                <div class="bordorline ml20 mt10 fsize14"> </div>
+                                                <div class="clear"></div>
+                                                <div class="ml20 fsize14">
+                                                    <div class="resoucity floatL">热搜城市：</div>
+                                                    <div class="resoucitylist floatL">
+                                                        <ul>
+                                                            <li>测试城市</li>
+                                                            <li>测试城市</li>
+                                                            <li>测试城市</li>
+                                                            <li>测试城市</li>
+                                                            <li>测试城市</li>
+                                                            <li>测试城市</li>
+                                                            <li>测试城市</li>
+                                                            <li>测试城市</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                                <div class="ml20 fsize14">
+                                                    <div class="resoucity floatL">热门景点：</div>
+                                                    <div class="resoucitylist floatL">
+                                                        <ul>
+                                                            <li>测景景点</li>
+                                                            <li>测景景点</li>
+                                                            <li>测景景点</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div data-role="tab-content" data-id="tab-b">
+                                                <div class="ml20 fsize14">
+                                                    <div class="searchbox mt10">
+                                                        <input type="text" class="inputsearchbox" placeholder="请输入目的地关键词" value="" />
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                                <div class="searchbotton ml20 mt10 fsize14">
+                                                    <div class="searchbottondetail floatR">
+                                                        <input type="button" value="搜索" />
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                                <div class="bordorline ml20 mt10 fsize14"> </div>
+                                                <div class="clear"></div>
+                                                <div class="ml20 fsize14">
+                                                    <div class="resoucity floatL">热搜城市：</div>
+                                                    <div class="resoucitylist floatL">
+                                                        <ul>
+                                                            <li>测试城市</li>
+                                                            <li>测试城市</li>
+                                                            <li>测试城市</li>
+                                                            <li>测试城市</li>
+                                                            <li>测试城市</li>
+                                                            <li>测试城市</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                                <div class="ml20 fsize14">
+                                                    <div class="resoucity floatL">热门景点：</div>
+                                                    <div class="resoucitylist floatL">
+                                                        <ul>
+                                                            <li>测景景点</li>
+                                                            <li>测景景点</li>
+                                                            <li>测景景点</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div data-role="tab-content" data-id="tab-c">
+                                                <div class="bordorheader ml20 mt10 fsize16"> 国内酒店/国际酒店 </div>
+                                                <div class="clear"></div>
+                                                <div class="ml20 fsize14">
+                                                    <div class="chufa">目的地：</div>
+                                                    <div class="mudi">关键字(选填)：</div>
+                                                </div>
+                                                <div class="ml20 fsize14">
+                                                    <div class="chufa">
+                                                        <input type="text" class="inputchufa" placeholder="苏州" value="" />
+                                                    </div>
+                                                    <div class="mudi">
+                                                        <input type="text" class="inputmudi" placeholder="酒店名称" value="" />
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                                <div class="ml20 fsize14">
+                                                    <div class="chufa">入住日期：</div>
+                                                    <div class="mudi">退房日期：</div>
+                                                </div>
+                                                <div class="ml20 fsize14">
+                                                    <script>
+                                                        var nowday = new Date();
+                                                    </script>
+                                                    <div class="chufa">
+                                                        <input type="text" class="inputchufa" placeholder="请选择日期" onclick="JTC.setday({minDate:nowday, ranged: true})" />
+                                                    </div>
+                                                    <div class="mudi">
+                                                        <input type="text" class="inputmudi" placeholder="请选择日期" onclick="JTC.setday({minDate:nowday, ranged: true})" />
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                                <div class="searchbotton ml20 mt10 fsize14">
+                                                    <div class="searchbottondetail floatR">
+                                                        <input type="button" value="搜索" />
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                                <div class="bordorline ml20 mt10 fsize14"> </div>
+                                                <div class="ml20 fsize14">
+                                                    <div class="resoucity floatL">热搜城市：</div>
+                                                    <div class="resoucitylist floatL">
+                                                        <ul>
+                                                            <li>测试城市</li>
+                                                            <li>测试城市</li>
+                                                            <li>测试城市</li>
+                                                            <li>测试城市</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div data-role="tab-content" data-id="tab-d">
+                                                <div class="ml20 fsize14">
+                                                    <div class="searchbox mt10">
+                                                        <input type="text" class="inputsearchbox" placeholder="请输入目的地关键词" value="" />
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                                <div class="searchbotton ml20 mt10 fsize14">
+                                                    <div class="searchbottondetail floatR">
+                                                        <input type="button" value="搜索" />
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                                <div class="bordorline ml20 mt10 fsize14"> </div>
+                                                <div class="clear"></div>
+                                                <div class="ml20 fsize14">
+                                                    <div class="resoucity floatL">热搜城市：</div>
+                                                    <div class="resoucitylist floatL">
+                                                        <ul>
+                                                            <li>测试城市</li>
+                                                            <li>测试城市</li>
+                                                            <li>测试城市</li>
+                                                            <li>测试城市</li>
+                                                            <li>测试城市</li>
+                                                            <li>测试城市</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                                <div class="ml20 fsize14">
+                                                    <div class="resoucity floatL">热门景点：</div>
+                                                    <div class="resoucitylist floatL">
+                                                        <ul>
+                                                            <li>测景景点</li>
+                                                            <li>测景景点</li>
+                                                            <li>测景景点</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div data-role="tab-content" data-id="tab-e">
+                                                <div class="ml20 fsize14">
+                                                    <div class="searchbox mt10">
+                                                        <input type="text" class="inputsearchbox" placeholder="请输入目的地关键词" value="" />
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                                <div class="searchbotton ml20 mt10 fsize14">
+                                                    <div class="searchbottondetail floatR">
+                                                        <input type="button" value="搜索" />
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                                <div class="bordorline ml20 mt10 fsize14"> </div>
+                                                <div class="clear"></div>
+                                                <div class="ml20 fsize14">
+                                                    <div class="resoucity floatL">热搜城市：</div>
+                                                    <div class="resoucitylist floatL">
+                                                        <ul>
+                                                            <li>测试城市</li>
+                                                            <li>测试城市</li>
+                                                            <li>测试城市</li>
+                                                            <li>测试城市</li>
+                                                            <li>测试城市</li>
+                                                            <li>测试城市</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                                <div class="ml20 fsize14">
+                                                    <div class="resoucity floatL">热门景点：</div>
+                                                    <div class="resoucitylist floatL">
+                                                        <ul>
+                                                            <li>测景景点</li>
+                                                            <li>测景景点</li>
+                                                            <li>测景景点</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div data-role="tab-content" data-id="tab-f">
+                                                <div class="ml20 fsize14">
+                                                    <div class="searchbox mt10">
+                                                        <input type="text" class="inputsearchbox" placeholder="请输入目的地关键词" value="" />
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                                <div class="searchbotton ml20 mt10 fsize14">
+                                                    <div class="searchbottondetail floatR">
+                                                        <input type="button" value="搜索" />
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                                <div class="bordorline ml20 mt10 fsize14"> </div>
+                                                <div class="clear"></div>
+                                                <div class="ml20 fsize14">
+                                                    <div class="resoucity floatL">热搜城市：</div>
+                                                    <div class="resoucitylist floatL">
+                                                        <ul>
+                                                            <li>测试城市</li>
+                                                            <li>测试城市</li>
+                                                            <li>测试城市</li>
+                                                            <li>测试城市</li>
+                                                            <li>测试城市</li>
+                                                            <li>测试城市</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                                <div class="ml20 fsize14">
+                                                    <div class="resoucity floatL">热门景点：</div>
+                                                    <div class="resoucitylist floatL">
+                                                        <ul>
+                                                            <li>测景景点</li>
+                                                            <li>测景景点</li>
+                                                            <li>测景景点</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div></div>
+                                <div class="navitems floatL">
+                                    <ul class="header_themlist">
+                                        <li>
+                                            <a class="title" href="#"
+                                               target="_self">
+                                                跟团游
+                                                <div class="navitag" style="display: none;"></div>
+                                            </a>
+                                            <div class="navitems_content one_list">
+                                                <dl class="nav_content_left">
+                                                    <dd> <a href="#">境外1</a> </dd>
+                                                    <dd> <a href="#">境内1</a> </dd>
+                                                </dl>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <a class="title" href="#"
+                                               target="_self">
+                                                自由行
+                                                <div class="navitag" style="display: none;"></div>
+                                            </a>
+                                            <div class="navitems_content one_list">
+                                                <dl class="nav_content_left">
+                                                    <dd> <a href="#">境外2</a> </dd>
+                                                    <dd> <a href="#">境内2</a> </dd>
+                                                </dl>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <a class="title" href="#"
+                                               target="_self">
+                                                酒店
+                                                <div class="navitag" style="display: none;"></div>
+                                            </a>
+                                            <div class="navitems_content one_list">
+                                                <dl class="nav_content_left">
+                                                    <dd> <a href="#">境外3</a> </dd>
+                                                    <dd> <a href="#">境内3</a> </dd>
+                                                </dl>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <a class="title" href="#"
+                                               target="_self">
+                                                门票
+                                                <div class="navitag" style="display: none;"></div>
+                                            </a>
+                                            <div class="navitems_content one_list">
+                                                <dl class="nav_content_left">
+                                                    <dd> <a href="#">境外4</a> </dd>
+                                                    <dd> <a href="#">境内4</a> </dd>
+                                                </dl>
+                                            </div>
+                                        </li>
+                                        <li class="navjwct">
+                                            <a class="title" href="#"
+                                               target="_self">
+                                                玩乐
+                                                <div class="navitag" style="display: none;"></div>
+                                            </a>
+                                            <div class="navitems_content one_list">
+                                                <dl class="nav_content_left">
+                                                    <dd> <a href="#">境外5</a> </dd>
+                                                    <dd> <a href="#">境内5</a> </dd>
+                                                </dl>
+                                            </div>
+                                        </li>
+                                        <li class="navhome selected">
+                                            <a class="title" href="#"
+                                               target="_self">
+                                                通讯
+                                                <div class="navitag" style="display: none;"></div>
+                                            </a>
+                                            <div class="navitems_content one_list">
+                                                <dl class="nav_content_left">
+                                                    <dd> <a href="#">境外6</a> </dd>
+                                                    <dd> <a href="#">境内6</a> </dd>
+                                                </dl>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="RightNavi"> <span id="un_login"> <a class="singin" href="<%linkurl(" login")%=login")%>" target="_self">登录</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="singup" href="<%linkurl(" register")%=register")%>" target="_self">注册</a> </span> </div>
+                </div>
+            </div>
+        </div>
+        <div class="SliderBox">
+            <div class="Slider">
+                <ul class="rslides">
+                    <%set DataTable focusNews=get_article_list("carousel", 0,0, 8, "status=0 and is_slide=1 and img_url<>''")%>
+                    <%foreach(DataRow dr in focusNews.Rows)%>
+                    <li> <a title="{dr[title]}" href="<%linkurl(" carousel_detail",{dr[id]})%=carousel_detail",{dr[id]})%>"> <img src="{dr[img_url]}" /> </a> </li>
+                    <%/foreach%>
+                </ul>
+            </div>
+        </div>
+        <div class="HeadMainPage">
+            <div class="search-new">
+                <div id="header_search_box">
+                    <div class="s-lft">
+                        <input id="defaultSearch" type="hidden" />
+                        <input name="home_city" class="typeahead city" id="header_search_city_input" type="text" placeholder="跟团游/自由行/酒店/门票" value="" />
+                    </div>
+                    <div class="s-rgt">
+                        <input class="btn" id="header_search_button" type="button" value="" />
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <div class="ContentGrey">
+            <div class="MainPage">
+                <div class="ContentHead"><a href="#"><span>跟团游</span> </a></div>
+                <div class="ContentGroup">
+                    <ul class="img-list ilist">
+                        <%set DataTable PackageTour=get_article_list("package_tour", 0,0, 4, "")%>
+                        <%foreach(DataRow dr in PackageTour.Rows)%>
+                        <li>
+                            <a title="{dr[title]}" href="<%linkurl(" package_tour_detail",{dr[id]})%=package_tour_detail",{dr[id]})%>
+                                ">
+                                <%if({dr[is_top]}=="1")%>
+                                <span class="abs-txt">特价</span>
+                                <%/if%>
+                                <span class="abs-bg"></span> <span class="price"> <i>¥{dr[market_price]}</i> <b>¥</b>{dr[sell_price]} </span> <span class="protxt">{dr[title]}</span> <img src="{dr[img_url]}" class="lazy_img" />
+                            </a>
+                        </li>
+                        <%/foreach%>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="ContentGrey">
+            <div class="MainPage">
+                <div class="ContentHead"><a href="#"><span>自由行</span> </a></div>
+                <div class="ContentGroup">
+                    <ul class="img-list ilist">
+                        <%set DataTable Walker=get_article_list("walker", 0,0, 4, "")%>
+                        <%foreach(DataRow dr in Walker.Rows)%>
+                        <li>
+                            <a title="{dr[title]}" href="<%linkurl(" walker_detail",{dr[id]})%=walker_detail",{dr[id]})%>
+                                ">
+                                <%if({dr[is_top]}=="1")%>
+                                <span class="abs-txt">特价</span>
+                                <%/if%>
+                                <span class="abs-bg"></span> <span class="price"> <i>¥{dr[market_price]}</i> <b>¥</b>{dr[sell_price]} </span> <span class="protxt">{dr[title]}</span> <img src="{dr[img_url]}" class="lazy_img" />
+                            </a>
+                        </li>
+                        <%/foreach%>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="ContentGrey">
+            <div class="MainPage">
+                <div class="ContentHead"><a href="#"><span>酒店</span> </a></div>
+                <div class="ContentGroup">
+                    <ul class="img-list ilist">
+                        <%set DataTable Grogshop=get_article_list("grog_shop", 0,0, 4, "")%>
+                        <%foreach(DataRow dr in Grogshop.Rows)%>
+                        <li>
+                            <a title="{dr[title]}" href="<%linkurl(" grog_shop_detail",{dr[id]})%=grog_shop_detail",{dr[id]})%>
+                                ">
+                                <%if({dr[is_top]}=="1")%>
+                                <span class="abs-txt">特价</span>
+                                <%/if%>
+                                <span class="abs-bg"></span> <span class="price"> <i>¥{dr[market_price]}</i> <b>¥</b>{dr[sell_price]} </span> <span class="protxt">{dr[title]}</span> <img src="{dr[img_url]}" class="lazy_img" />
+                            </a>
+                        </li>
+                        <%/foreach%>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="ContentGrey">
+            <div class="MainPage">
+                <div class="ContentHead"><a href="#"><span>门票</span> </a></div>
+                <div class="ContentGroup">
+                    <ul class="img-list ilist">
+                        <%set DataTable Ticket=get_article_list("ticket", 0,0, 4, "")%>
+                        <%foreach(DataRow dr in Ticket.Rows)%>
+                        <li>
+                            <a title="{dr[title]}" href="<%linkurl(" ticket_detail",{dr[id]})%=ticket_detail",{dr[id]})%>
+                                ">
+                                <%if({dr[is_top]}=="1")%>
+                                <span class="abs-txt">特价</span>
+                                <%/if%>
+                                <span class="abs-bg"></span> <span class="price"> <i>¥{dr[market_price]}</i> <b>¥</b>{dr[sell_price]} </span> <span class="protxt">{dr[title]}</span> <img src="{dr[img_url]}" class="lazy_img" />
+                            </a>
+                        </li>
+                        <%/foreach%>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="ContentGrey">
+            <div class="MainPage">
+                <div class="ContentHead"><a href="#"><span>玩乐</span> </a></div>
+                <div class="ContentGroup">
+                    <ul class="img-list ilist">
+                        <%set DataTable Ploy=get_article_list("ploy", 0,0, 4, "")%>
+                        <%foreach(DataRow dr in Ploy.Rows)%>
+                        <li>
+                            <a title="{dr[title]}" href="<%linkurl(" ploy_detail",{dr[id]})%=ploy_detail",{dr[id]})%>
+                                ">
+                                <%if({dr[is_top]}=="1")%>
+                                <span class="abs-txt">特价</span>
+                                <%/if%>
+                                <span class="abs-bg"></span> <span class="price"> <i>¥{dr[market_price]}</i> <b>¥</b>{dr[sell_price]} </span> <span class="protxt">{dr[title]}</span> <img src="{dr[img_url]}" class="lazy_img" />
+                            </a>
+                        </li>
+                        <%/foreach%>
+                    </ul>
+                </div>
+            </div>
+            <div class="ContentGrey">
+                <div class="MainPage">
+                    <div class="ContentHead"><a href="#"><span>通讯</span> </a></div>
+                    <div class="ContentGroup">
+                        <ul class="img-list ilist">
+                            <%set DataTable Communicate=get_article_list("communicate", 0,0, 4, "")%>
+                            <%foreach(DataRow dr in Communicate.Rows)%>
+                            <li>
+                                <a title="{dr[title]}" href="<%linkurl(" communicate_detail",{dr[id]})%=communicate_detail",{dr[id]})%>
+                                    ">
+                                    <%if({dr[is_top]}=="1")%>
+                                    <span class="abs-txt">特价</span>
+                                    <%/if%>
+                                    <span class="abs-bg"></span> <span class="price"> <i>¥{dr[market_price]}</i> <b>¥</b>{dr[sell_price]} </span> <span class="protxt">{dr[title]}</span> <img src="{dr[img_url]}" class="lazy_img" />
+                                </a>
+                            </li>
+                            <%/foreach%>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <%template src="footer.html"%>
+            <div class="RightBox" style="display: none;">
+                <div class="KeFuBox" id="KeFuBtn">
+                    <span id="zixun">在线咨询</span>
+                    <div class="KeFu"></div>
+                </div>
+            </div>
+            <div class="KeFuGroup" style="display: none; width: 120px; height: 200px; position: fixed; bottom: 152px; right: 52px; z-index: 99999; background-color: rgba(136, 180, 34, 1); ">
+                <div class="ACloseBtn"></div>
+                <div class="kefurenyuan1"><a href="#"><img src="<%templateskin%>/images/QQPic.png" />客服1</a></div>
+                <div class="kefurenyuan2"><a href="#"><img src="<%templateskin%>/images/QQPic.png" />客服2</a></div>
+                <div class="kefurenyuan2"><a href="#"><img src="<%templateskin%>/images/QQPic.png" />客服3</a></div>
+            </div>
+        </div>
+        <script type="text/javascript" charset="utf-8" src="<%templateskin%>/js/jquery-1.9.1.js"></script>
+        <script type="text/javascript" charset="utf-8" src="<%templateskin%>/js/index.js"></script>
+        <script type="text/javascript" charset="utf-8" src="<%templateskin%>/js/tabview.js"></script>
+        <script type="text/javascript" charset="utf-8" src="<%templateskin%>/js/indextab.js"></script>
+        <script type="text/javascript" src="<%templateskin%>/js/JTimer_1.3.js"></script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,296 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>{site.seo_title}</title>
+    <meta name="keywords" content=" {site.seo_keyword}" />
+    <meta name="description" content="{site.seo_description}" />
+    <link href="<%templateskin%>/css/info_list.css" rel="stylesheet" type="text/css" />
+    <link href="<%templateskin%>/css/common.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" charset="utf-8" src="{config.webpath}scripts/jquery/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="<%templateskin%>/js/common.js"></script>
+    <script type="text/javascript" charset="utf-8" src="<%templateskin%>/js/info_list.js"></script>
+    <script type="text/javascript" src="<%templateskin%>/js/JTimer_1.3.js"></script>
+    <script type="text/javascript" charset="utf-8" src="<%templateskin%>/js/cart.js"></script>
+    <style>
+        .Zebra_DatePicker td.dp_selected {
+            background: #fe5098;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+
+        <!--Header-->
+        <%template src="_header.html"%>
+        <!--/Header-->
+        <!--C#代码-->
+        <%csharp%>
+        string orderby="add_time desc,id asc";
+        string strBy=PLRequest.GetQueryString("orderby");
+        if(strBy=="click"){
+        orderby="click desc";
+        }else if(strBy=="min"){
+        orderby="sell_price asc";
+        }else if(strBy=="max"){
+        orderby="sell_price desc";
+        }
+        string strwhere="status=0";
+        int minPrice=PLRequest.GetQueryInt("min_price",0);
+        if(minPrice>0){
+        strwhere+="and sell_price>="+minPrice;
+        }
+        int maxPrice=PLRequest.GetQueryInt("max_price",0);
+        if(maxPrice>0){
+        strwhere+="and sell_price<="+maxPrice;
+        }
+        string str_start_time=PLRequest.GetQueryString("start_time");
+        string str_end_time=PLRequest.GetQueryString("end_time");
+        string ss_start_time= string.Empty;
+        string se_end_time= string.Empty;
+        string se_start_time= string.Empty;
+        string ss_end_time= string.Empty;
+        if(!string.IsNullOrEmpty(str_start_time))
+        {
+        DateTime start_time= PLRequest.GetQueryDateTime("start_time");
+        ss_start_time=start_time.ToString("yyyy-MM-dd")+" 00:00:00";
+        se_start_time=start_time.ToString("yyyy-MM-dd")+" 23:59:59";
+        }
+        if(!string.IsNullOrEmpty(str_end_time))
+        {
+        DateTime end_time= PLRequest.GetQueryDateTime("end_time");
+            ss_end_time=end_time.ToString("yyyy-MM-dd")+" 00:00:00";
+            se_end_time=end_time.ToString("yyyy-MM-dd")+" 23:59:59";
+        }
+        if(!string.IsNullOrEmpty(ss_start_time) && !string.IsNullOrEmpty(se_end_time))
+        {
+           strwhere+=" and ((start_date<='"+se_end_time+"' and end_date>='"+ss_end_time+"') or (start_date<='"+se_start_time+"' and end_date>='"+ss_start_time+"') or (start_date>='"+se_start_time+"' and end_date<='"+se_end_time+"'))";
+        }
+        if(!string.IsNullOrEmpty(ss_start_time) && string.IsNullOrEmpty(se_end_time))
+        {
+           strwhere+=" and start_date<='"+se_start_time+"' and end_date>='"+ss_start_time+"'";
+        }
+        if(string.IsNullOrEmpty(ss_start_time) && !string.IsNullOrEmpty(se_end_time))
+        {
+        strwhere+=" and start_date<='"+se_end_time+"' and end_date>='"+ss_end_time+"'";
+        }
+        Dictionary<string,string>
+            dicSpecIds=new Dictionary<string,string>
+                ();
+                for (int i = 0; i < Request.QueryString.AllKeys.Length; i++)
+                {
+                string paramKey=Request.QueryString.GetKey(i).ToString();
+                int paramValue=Utils.StrToInt(Request.QueryString[i].ToString(),0);
+                if(paramKey.StartsWith("s_") && paramValue>0)
+                {
+                dicSpecIds.Add(paramKey,paramValue.ToString());
+                }
+                }
+                <%/csharp%>
+                <!--/C#代码-->
+                <div class="content">
+                    <div class="c-wrapper">
+                        <!-- 筛选项 begin -->
+                        <div class="searched">
+                            <dl class="yxz">
+                                <dt style="background: none;">您已选择 :</dt>
+                                <dd style="margin-left: 15px;">
+                                    <!-- <span>主题</span> -->
+                                    <%set DataTable areaList=get_area_parent_list(area_id)%>
+                                    <%foreach(DataRow adr in areaList.Rows)%>
+                                    <span class="cur_content">
+                                        <span id="check_theme">{adr[title]}</span>
+                                        <a class="search_cancel" id="themeview" href='<%linkurl("tsearch","?category_id="+category_id+"&min_price="+minPrice+"&max_price="+maxPrice+"&area_id="+get_area_parent_id({adr[id]})+"&start_time="+str_start_time+"&end_time="+str_end_time+"&orderby=click"+get_article_spec_param(dicSpecIds,""))%>'
+                                           rel="Ticket">×</a>
+                                    </span>
+                                    <%/foreach%>
+                                    <%set DataTable GoodscList=get_category_parent_list(channel,model.id)%>
+                                    <%loop gdr GoodscList%>
+                                    <span class="cur_content">
+                                        <span id="check_theme">{gdr[title]}</span>
+                                        <a class="search_cancel" href='<%linkurl("tsearch","?category_id="+get_category_parent_id({gdr[id]})+"&min_price="+minPrice+"&max_price="+maxPrice+"&area_id="+area_id+"&start_time="+str_start_time+"&end_time="+str_end_time+"&orderby=click"+get_article_spec_param(dicSpecIds,""))%>' id="themeview"
+                                           rel="Ticket">×</a>
+                                    </span>
+                                    <%/loop%>
+                                </dd>
+                            </dl>
+                            <dl class="mdd">
+                                <dt>目 的 地 :</dt>
+                                <dd id="mdd">
+                                    <span class="MoreBtn" id="ShowMore" style="display: none;">查看更多∨</span>
+                                    <span class="MoreBtn" id="HideMore" style="display: none;">收起∧</span>
+                                    <%set DataTable categoryareaList=get_area_child_list(area_id)%>
+                                    <%foreach(DataRow cdr in categoryareaList.Rows)%>
+                                    <a href='<%linkurl("tsearch","?category_id="+category_id+"&min_price="+minPrice+"&max_price="+maxPrice+"&area_id="+{cdr[id]}+"&start_time="+str_start_time+"&end_time="+str_end_time+"&orderby=click"+get_article_spec_param(dicSpecIds,""))%>'>{cdr[title]}</a>
+                                    <%/foreach%>
+                                </dd>
+                                <div class="clear"></div>
+                            </dl>
+                            <dl class="leixing">
+                                <dt>产品类型 :</dt>
+                                <dd id="leixing">
+                                    <%set DataTable GoodsCategoryList=get_category_child_list(channel,model.id)%>
+                                    <%loop gcdr GoodsCategoryList%>
+                                    <a class="selected" href='<%linkurl("tsearch","?category_id="+{gcdr[id]}+"&min_price="+minPrice+"&max_price="+maxPrice+"&start_time="+str_start_time+"&end_time="+str_end_time+"&orderby="+strBy+get_article_spec_param(dicSpecIds,""))%>'>{gcdr[title]}</a>
+                                    <%/loop%>
+                                </dd>
+                                <div class="clear"></div>
+                            </dl>
+                            <dl class="playdate">
+                                <dt>游玩日期 :</dt>
+                                <script>
+                                    var nowday = new Date();
+                                </script>
+                                <dd id="daterange">
+                                    <span>
+                                        <a class="date_range_click" href='<%linkurl("tsearch","?category_id="+category_id+"&min_price="+minPrice+"&max_price="+maxPrice+"&start_time="+DateTime.Now.ToString("yyyy-MM-dd")+"&end_time="+DateTime.Now.ToString("yyyy-MM-dd")+"&orderby="+strBy+get_article_spec_param(dicSpecIds,""))%>'>今天</a>
+                                    </span>
+                                    <span>
+                                        <a class="date_range_click" href='<%linkurl("tsearch","?category_id="+category_id+"&min_price="+minPrice+"&max_price="+maxPrice+"&start_time="+DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")+"&end_time="+DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")+"&orderby="+strBy+get_article_spec_param(dicSpecIds,""))%>' rel="2016-05-17~2016-05-17">明天</a>
+                                    </span>
+                                    <span>
+                                        <a class="date_range_click" href='<%linkurl("tsearch","?category_id="+category_id+"&min_price="+minPrice+"&max_price="+maxPrice+"&start_time="+CalculateFirstDateOfWeek(DateTime.Now).ToString("yyyy-MM-dd")+"&end_time="+CalculateLastDateOfWeek(DateTime.Now).ToString("yyyy-MM-dd")+"&orderby="+strBy+get_article_spec_param(dicSpecIds,""))%>'>本周</a>
+                                    </span>
+                                    <span class="DateSelect">
+                                        <input id="StartDate" type="text" placeholder="开始时间" onclick="JTC.setday({minDate:nowday, ranged: true})" value="" /> — <input id="EndDate" type="text" placeholder="结束时间" onclick="JTC.setday({minDate:nowday, ranged: true})" value="" /><input class="querydate" id="querydate" type="button" value="确定" onclick="date_click()" />
+                                    </span>
+                                </dd>
+                                <div class="clear"></div>
+                            </dl>
+                            <div class="clear"></div>
+                        </div>
+                        <input id="cityName" type="hidden" value="AllCitys" />
+                        <input id="countryName" type="hidden" />
+                        <input id="continentName" type="hidden" />
+                        <input id="themeEname" type="hidden" value="Ticket" />
+                        <input id="isFreeSale" type="hidden" value="allIsFreeSale" />
+                        <input id="labelName" type="hidden" value="AllLabel" />
+                        <input id="timeRange" type="hidden" value="allTimeRange" />
+                        <input id="orderType" type="hidden" value="1" />
+                        <input id="search_keyword" type="hidden" />
+                        <input id="search_applicableCrowd" type="hidden" />
+                        <input id="sort_type" type="hidden" />
+                        <!-- 筛选项 end -->
+                        <!-- 筛选列表 begin -->
+                        <input id="orderType" type="hidden" />
+                        <div class="searchlist">
+                            <!-- 排序方式 begin -->
+                            <div class="sort">
+                                <ul>
+                                    <li>
+                                        <b class="sort_click" id="sort_default">
+                                            <%if(strBy=="click")%>
+                                            <a class="selected" href='<%linkurl("tsearch","?category_id="+category_id+"&min_price="+minPrice+"&max_price="+maxPrice+"&start_time="+str_start_time+"&end_time="+str_end_time+"&orderby=click"+get_article_spec_param(dicSpecIds,""))%>'>综合</a>
+                                            <%else%>
+                                            <a href='<%linkurl("tsearch","?category_id="+category_id+"&min_price="+minPrice+"&max_price="+maxPrice+"&start_time="+str_start_time+"&end_time="+str_end_time+"&orderby=click"+get_article_spec_param(dicSpecIds,""))%>'>综合</a>
+                                            <%/if%>
+                                        </b>
+                                    </li>
+                                    <li>
+                                        <b class="sort_click" id="sale_amount">
+                                            <%if(strBy==""||strBy=="time")%>
+                                            <a class="first selected" href='<%linkurl("tsearch","?category_id="+category_id+"&min_price="+minPrice+"&max_price="+maxPrice+"&start_time="+str_start_time+"&end_time="+str_end_time+"&orderby=time"+get_article_spec_param(dicSpecIds,""))%>'>上架时间</a>
+                                            <%else%>
+                                            <a class="first" href='<%linkurl("tsearch","?category_id="+category_id+"&min_price="+minPrice+"&max_price="+maxPrice+"&start_time="+str_start_time+"&end_time="+str_end_time+"&orderby=time"+get_article_spec_param(dicSpecIds,""))%>'>上架时间</a>
+                                            <%/if%>
+                                        </b>
+                                    </li>
+                                    <li>
+                                        <b class="sort_click" id="soldprice_yuan">
+                                            价格
+                                            <%if(strBy=="max")%>
+                                            <a class="selected" href='<%linkurl("tsearch","?category_id="+category_id+"&min_price="+minPrice+"&max_price="+maxPrice+"&start_time="+str_start_time+"&end_time="+str_end_time+"&orderby=max"+get_article_spec_param(dicSpecIds,""))%>'><i class="PriceHigh"></i></a>
+                                            <%else%>
+                                            <a href='<%linkurl("tsearch","?category_id="+category_id+"&min_price="+minPrice+"&max_price="+maxPrice+"&start_time="+str_start_time+"&end_time="+str_end_time+"&orderby=max"+get_article_spec_param(dicSpecIds,""))%>'><i class="PriceHigh"></i></a>
+                                            <%/if%>
+                                            <%if(strBy=="min")%>
+                                            <a class="selected" href='<%linkurl("tsearch","?category_id="+category_id+"&min_price="+minPrice+"&max_price="+maxPrice+"&start_time="+str_start_time+"&end_time="+str_end_time+"&orderby=min"+get_article_spec_param(dicSpecIds,""))%>'><i class="PriceLow"> </i></a>
+                                            <%else%>
+                                            <a href='<%linkurl("tsearch","?category_id="+category_id+"&min_price="+minPrice+"&max_price="+maxPrice+"&start_time="+str_start_time+"&end_time="+str_end_time+"&orderby=min"+get_article_spec_param(dicSpecIds,""))%>'><i class="PriceLow"></i></a>
+                                            <%/if%>
+                                        </b>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- 筛选结果 begin -->
+                            <div class="lists">
+                                <%set DataTable goodsList=get_article_list(channel,category_id,0,dicSpecIds,pagesize,page,strwhere,orderby,out totalcount)%><!--数据-->
+                                <%set pagelist = Utils.OutPageList(pagesize, page, totalcount, linkurl("tsearch", "?category_id="+category_id+"&min_price="+minPrice+"&max_price="+maxPrice+"&start_time="+str_start_time+"&end_time="+str_end_time+"&orderby="+strBy+"&page=__id__"+get_article_spec_param(dicSpecIds,"")), 8)%><!--分页-->
+                                <%foreach(DataRow dr in goodsList.Rows)%>
+                                <span class="product">
+                                    <dl class="products">
+                                        <dt class="model1">
+                                            <div class="img" style="background: rgb(204, 204, 204); width: 280px; height: 146px;">
+                                                <a title="{dr[title]}" href='<%linkurl("tourist_mall_show",{dr[id]})%>'> <img width="280" height="146" class="lazy_img" alt="" src="{dr[img_url]}" /></a>
+                                                </a>
+                                            </div>
+                                            <div class="infos" style="display: none;">
+                                                <a class="SearchLinker" href='<%linkurl("tourist_mall_show",{dr[id]})%> '
+                                                   target="_blank">
+                                                    <p>
+
+                                                        {dr[zhaiyao]}
+
+                                                    </p>
+                                                </a>
+                                            </div>
+                                        </dt>
+                                        <dd>
+                                            <div class="name"><a title="{dr[title]}" href='<%linkurl("tourist_mall_show",{dr[id]})%>' target="_blank">{dr[title]}</a></div>
+                                            <div class="price" id="price_7921">
+                                                <div class="vip">
+                                                    <b>¥<em id="7921">{dr[sell_price]}</em></b>起
+
+                                                </div>
+                                                <div class="payment">门市价：{dr[market_price]}</div>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                </span>
+                                <%/foreach%>
+                                <%if(goodsList.Rows.Count==0)%>
+                                <div class="nodata">暂时无法找到您想要的商品！</div>
+                                <%/if%>
+                                <div class="clear"></div>
+
+                            </div><!-- 筛选结果 end -->                 <!-- 分页开始 -->
+                            <div class="page">
+                                <!--页码列表-->
+                                <div class="page-box">
+                                    <div class="digg">{pagelist}</div>
+                                </div>
+                                <!--/页码列表-->
+                            </div>
+
+                        </div><!-- 筛选列表 end -->
+                    </div>
+                </div>
+            </string,string>
+        </string,string>
+    </div>
+    <div id="load_img" style="display: none;">
+        <img src="images/xubox_loading2.gif" />&nbsp;搜索中...&nbsp;
+    </div>
+    <!--footer begin-->
+    <%template src="_footer.html"%>
+    <!--footer end-->
+    <script type="text/javascript" charset="utf-8" src="<%templateskin%>/js/CategoryInfo.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(function () {
+            var req_sdate = getUrlParam('start_time');
+            var req_edate = getUrlParam('end_time');
+            $("#StartDate").val(req_sdate);
+            $("#EndDate").val(req_edate);
+        })
+        function date_click() {
+            var s_date = $("#StartDate").val();
+            var e_date = $("#EndDate").val();
+            var url = '<%linkurl("tsearch","?category_id="+category_id+"&min_price="+minPrice+"&max_price="+maxPrice+"&start_time=#sdate#&end_time=#edate#&orderby="+strBy+get_article_spec_param(dicSpecIds,""))%>';
+            url = url.replace('#sdate#', s_date);
+            url = url.replace('#edate#', e_date);
+            location.href = url;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <%set string category_title=get_category_title(model.category_id,"信息发布")%>
+    <title>{site.seo_title}</title>
+    <meta name="keywords" content=" {site.seo_keyword}" />
+    <meta name="description" content="{site.seo_description}" />
+    <link href="<%templateskin%>/css/about_us.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" charset="utf-8" src="{config.webpath}scripts/jquery/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="<%templateskin%>/js/common.js"></script>
+</head>
+<body>
+    <div class="wrap">
+        <!--nav begin-->
+        <%template src="_header.html"%>
+        <!--nav end-->
+        <!--content begin-->
+         <div class="content us">
+            <div class="lft">
+                <ul>
+                    <!--类别-->
+                    <%set DataTable categoryList=get_category_child_list("content",0)%>
+                    <%loop cdr categoryList%>
+                    <%set DataTable dt=get_article_list("content", {strtoint({cdr[id]})},0, 10, "status=0")%>
+                    <%foreach(DataRow dr in dt.Rows)%>
+                    <li>
+                        <a href="<%linkurl("content",{dr[call_index]})%>" target="_self">
+                            {dr[title]}
+                        </a>
+                    </li>
+                    <%/foreach%>
+                    <%/loop%>
+                    <!--类别-->
+                </ul>
+            </div>
+            <div class="rgt">
+                <!--job begin-->
+                <div class="clause">
+                    <div class="text">
+                        {model.content}
+                    </div>
+                </div><!--job end-->
+            </div>
+            <div class="clear"></div>
+        </div><!--content end-->
+        <!--footer begin-->
+        <%template src="_footer.html"%>
+        <!--footer end-->
+    </div>
+</body>
+</html>

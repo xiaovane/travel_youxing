@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<title>站内搜索 - {site.name}</title>
+<meta name="keywords" content="{site.seo_keyword}" />
+<meta name="description" content="{site.seo_description}" />
+<link href="<%templateskin%>/css/info_list.css" rel="stylesheet" type="text/css" />
+<link href="<%templateskin%>/css/common.css" rel="stylesheet" type="text/css" />
+<link href="<%templateskin%>/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" charset="utf-8" src="{config.webpath}scripts/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%templateskin%>/js/common.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%templateskin%>/js/CategoryInfo.js"></script>
+    <style>
+        .Zebra_DatePicker td.dp_selected {
+            background: #fe5098;
+        }
+    </style>
+</head>
+<body>
+  <div class="wrap">
+        <!--Header-->
+        <%template src="_header.html"%>
+        <!--/Header-->
+                <!--/C#代码-->
+                <div class="content">
+                    <div class="c-wrapper">
+                        <!-- 筛选列表 begin -->
+                        <div class="searchlist">
+                            <!-- 筛选结果 begin -->
+                            <div class="lists">
+                                <%set DataTable goodsList=get_search_list(15, out totalcount)%>
+                                <!--取得分页页码列表-->
+                                <%if({tags}!="")%>
+                                <%set pagelist=get_page_link(15, page, totalcount, linkurl("search","?channel=" + channel + "&tags=" + Server.UrlEncode(tags) + "&page=__id__"))%>
+                                <%else%>
+                                <%set pagelist=get_page_link(15, page, totalcount, linkurl("search","?channel=" + channel + "&keyword=" + Server.UrlEncode(keyword) + "&page=__id__"))%>
+                                <%/if%>
+                                <%foreach(DataRow dr in goodsList.Rows)%>
+                                <span class="product">
+                                    <dl class="products">
+                                        <dt class="model1">
+                                            <div class="img" style="background: rgb(204, 204, 204); width: 280px; height: 146px;">
+                                                <a title="{dr[title]}" href='<%linkurl("tourist_mall_show",{dr[id]})%>'> <img width="280" height="146" class="lazy_img" alt="" src="{dr[img_url]}" /></a>
+                                            </div>
+                                        </dt>
+                                        <dd>
+                                            <div class="name"><a title="{dr[title]}" href='<%linkurl("tourist_mall_show",{dr[id]})%>'>{dr[title]}</a></div>
+                                            <div class="price" id="price_7921">
+                                                <div class="vip">
+                                                    <b>¥<em id="7921">{dr[sell_price]}</em></b>起
+
+                                                </div>
+                                                <div class="payment">门市价：{dr[market_price]}</div>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                </span>
+                                <%/foreach%>
+                                <%if(goodsList.Rows.Count==0)%>
+                                <div class="nodata">暂时无法找到您想要的商品！</div>
+                                <%/if%>
+                                <div class="clear"></div>
+                            </div>
+                        <!-- 筛选结果 end -->                
+                         <!-- 分页开始 -->
+
+                            <div class="page">
+                                {pagelist}
+                            </div>
+                        </div>
+                        <!-- 筛选列表 end -->
+                    </div>
+                </div>
+      <!--footer begin-->
+      <%template src="_footer.html"%>
+      <!--footer end-->
+        <div id="load_img" style="display: none;">
+            <img src="images/xubox_loading2.gif" />&nbsp;搜索中...&nbsp;
+        </div>
+    </div>
+   
+</body>
+</html>

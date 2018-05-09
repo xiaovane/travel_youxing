@@ -1,0 +1,78 @@
+﻿        <!--nav begin-->
+<div class="HeadNormal">
+    <div class="Navi">
+        <div class="HeadMainPage">
+            <div class="LogoNormal">
+                <a title="{site.name}" href="{site.domain}">
+                    <img alt="{site.name}"
+                         src="<%templateskin%>/images/logonormal_v3.png" />
+                </a>
+            </div>
+            <div class="Head_LeftNavi">
+                <div class="nav">
+                    <div class="c-wrapper">
+                        <div></div>
+                        <div class="navitems floatL">
+                            <ul class="header_themlist">
+                                <!--类别-->
+                                <%set DataTable GoodsCList=get_category_child_list("tourist_mall",0)%>
+                                <%loop ncdr GoodsCList%>
+                                <li>
+                                    <a class="title" href="<%linkurl("tourist_mall_list",{ncdr[id]})%>
+                                        " target="_self">
+                                        {ncdr[title]}
+                                        <div class="navitag" style="display: none;"></div>
+                                    </a>
+                                </li>
+                                <%/loop%>
+                                <!--/类别-->
+                            </ul>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="search_box">
+                <div id="header_search_box">
+                    <div class="s-lft">
+                        <input id="defaultSearch" type="hidden" />
+                        <input id="keywords" name="keywords" class="typeahead city" type="text" onkeydown="if(event.keyCode==13){SiteSearch('<%linkurl("search")%>', '#keywords');return false};" placeholder="输入回车搜索" x-webkit-speech=""/>
+                    </div>
+                    <div class="s-rgt">
+                        <input class="btn" type="submit" onclick="SiteSearch('<%linkurl("search")%>', '#keywords');" value=" " />
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                $.ajax({
+                    type: "POST",
+                    url: "{config.webpath}tools/submit_ajax.ashx?action=user_check_login",
+                    dataType: "json",
+                    timeout: 20000,
+                    success: function (data, textStatus) {
+                        if (data.status == 1) {
+                            $("#menu").append('<span id="au_login">');
+                            $("#menu").append('<a class="user" href="<%linkurl("usercenter","index")%>">我的优行</a>&nbsp;&nbsp;|&nbsp;&nbsp;');
+                            $("#menu").append('<a id="uloginout" href="<%linkurl("usercenter","exit")%>">退出</a>');
+                            //$("#menu").append(' <a href="<%linkurl("cart")%>">购物车<span id="shoppingCartCount"> ');
+                            //$("#menu").append('<script type="text/javascript" src="{config.webpath}tools/submit_ajax.ashx?action=view_cart_count"></span>件</a>');
+          
+                            $("#menu").append('</span>');
+                        } else {
+                            $("#menu").append('<span id="un_login">');
+                            $("#menu").append('<a class="singin" href="<%linkurl("login")%>">登录</a>&nbsp;&nbsp;|&nbsp;&nbsp;');
+                            $("#menu").append('<a class="singup" href="<%linkurl("register")%>">注册</a>');
+                            $("#menu").append('</span>');
+                        }
+                    }
+                });
+            </script>
+            <div id="menu" class="RightNavi">
+              <a href='<%linkurl("cart")%>'>购物车<span id="shoppingCartCount">
+                <script type="text/javascript" src="{config.webpath}tools/submit_ajax.ashx?action=view_cart_count"></script></span>件</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+            </div>
+        </div>
+    </div>
+</div>
+<!--nav end-->

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<about>
+<template name="我的站点"
+  author="wh"
+  createdate = "2016-5-25"
+  version="4.0"
+  fordntver="V4.0版本" />
+</about>

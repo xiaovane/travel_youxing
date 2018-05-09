@@ -1,0 +1,418 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>{site.seo_title}</title>
+    <meta name="keywords" content=" {site.seo_keyword}" />
+    <meta name="description" content="{site.seo_description}" />
+    <link href="<%templateskin%>/css/info_detail.css" rel="stylesheet" type="text/css" />
+    <link href="<%templateskin%>/css/common.css" rel="stylesheet" type="text/css" />
+    <link href="<%templateskin%>/css/calendar.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" charset="utf-8" src="{config.webpath}scripts/jquery/jquery-1.11.2.min.js"></script>
+  
+   
+
+</head>
+<body>
+    <div class="wrap">
+        <!--nav begin-->
+        <!--Header-->
+        <%template src="_header.html"%>
+        <!--/Header-->
+        <!--nav end-->
+        <!--content begin-->
+        <div class="content">
+            <!--<div class="position" style="display:none">
+
+                <a style="color: black;" href="http://www.youxing.com/">
+                    首页
+                </a> &gt;<a style="color: black;" href="#">亚洲</a>
+                &gt;                <a style="color: black;" href="#">泰国</a>
+                &gt;                <a style="color: black;" href="#">普吉岛</a>
+            </div>-->
+            <div class="tour_show text">
+                <div class="tour-title">
+                    <div class="clear"></div>
+                </div>
+                <div class="show-left">
+                    <span class="jqzoom">
+                        <img />
+                    </span>
+                    <!--缩略图-->
+                    <div class="pic-scroll">
+                        <!--<a class="prev">&lt;</a>
+                        <a class="next">&gt;</a>-->
+                        <div class="items">
+                            <ul>
+                                <%if(model.albums!=null)%>
+                                <%foreach(Plumsys.Model.article_albums modelt in model.albums)%>
+                                <li><img bimg="{modelt.original_path}" src="{modelt.thumb_path}" onmousemove="preview(this);" /></li>
+                                <%/foreach%>
+                                <%/if%>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--缩略图-->
+                </div>
+                <!--<div class="show-left">
+                    <div class="tour_img_slider">
+                        <ul class="rslides" id="tour-slider">
+                            <%if(model.albums!=null)%>
+                            <%foreach(Plumsys.Model.article_albums modelt in model.albums)%>
+                            <li style='width: 690px; height: 294px; '><img bimg="{modelt.original_path}" src="{modelt.thumb_path}" /></li>
+                            <%/foreach%>
+                            <%/if%>
+                        </ul>
+                    </div>
+                </div>-->
+                <div class="show-right tour-buy" id="showBuyHtml">
+                    <h3>{model.title}</h3>
+                    <div class="price-unit">
+                        <div class="floatL price-cur-wrap">
+                            <p>
+                                <span class="buy-price"><b id="commoditySellPrice">¥{model.fields[sell_price]}</b>起</span>
+                            </p>
+							
+                            <p>门市价 <s id="commodityMarketPrice">¥{model.fields[market_price]}</s></p>
+                        </div>
+                    </div>
+                    <div class="TourDetailGroup">
+                        <!--<div class="BuyNumBox">
+                            <span class="BuyNum">已有<font>1</font>人购买</span>
+                        </div>
+                        <div class="NewTourStarBox">
+                            <span class="CommentNum">加载中...</span>
+                        </div>-->
+                      
+                    </div>
+                    <div class="TagList">
+                        <!--<span title="普吉经典跳岛路线，行程安排舒适"
+                              class="Tag">普吉经典跳岛路线，行程安排舒适</span>
+                        <span title="避开拥挤人群，携老带幼优先选择"
+                              class="Tag">避开拥挤人群，携老带幼优先选择</span>
+                        <span title="普吉最大最豪华船公司，保障安全"
+                              class="Tag">普吉最大最豪华船公司，保障安全</span>-->
+
+                    </div>
+                  
+                   <div id="goodsSpecBox" class="spec-box line">
+                       <dl>
+                           <dt>预定日期</dt>
+                           <dd>
+                               <div class="stock-box2">
+                                   <input type="text" placeholder="请选择日期" onclick="JTC.setday2({minDate:startdate,maxDate:enddate ,ranged: true})" readonly="readonly" id="select_date" />
+                               </div>
+                           </dd>
+                       </dl>
+          <!--商品规格-->
+          <%set List<Plumsys.Model.article_goods_spec> specList=get_article_goods_spec(model.id, "parent_id=0")%>
+          <%if(specList!=null)%>
+          <%foreach(Plumsys.Model.article_goods_spec modelt1 in specList)%>
+          <dl>
+            <dt>{modelt1.title}</dt>
+            <dd>
+              <ul class="items">
+                <!--规格选项-->
+                <%set List<Plumsys.Model.article_goods_spec> itemList=get_article_goods_spec(model.id, "parent_id="+modelt1.spec_id)%>
+                <%if(itemList!=null)%>
+                <%foreach(Plumsys.Model.article_goods_spec modelt2 in itemList)%>
+                <li>
+                  <a specid="{modelt2.spec_id}" title="{modelt2.title}" href="javascript:;">
+                    <%if(modelt2.img_url!=null&&modelt2.img_url!="")%>
+                    <img src="{modelt2.img_url}" />
+                    <%else%>
+                    <span>{modelt2.title}</span>
+                    <%/if%>
+                  </a>
+                </li>
+                <%/foreach%>
+                <%/if%>
+                <!--/规格选项-->
+              </ul>
+            </dd>
+          </dl>
+          <%/foreach%>
+          <%/if%>
+          <!--/商品规格-->
+        </div>
+                    <div class="spec-box">
+                        <script>
+                            //年月日
+                            var year=new Date().getFullYear();
+                            var mon=new Date().getMonth()+1;
+                            var day=new  Date().getDate();
+
+                            var today=year+'/'+mon+'/'+day;
+                            //开始日期
+                            var start_date = '{model.fields[start_date]}';
+                            var startdate=start_date.toString("yyyy-MM-dd");
+                            //结束日期
+                            var end_date= '{model.fields[end_date]}';
+                            var enddate=end_date.toString("yyyy-MM-dd");
+                            //如果今天日期大于开始日期，开始日期失效。无结束日期售本月结束的
+                            if (today>startdate || startdate=="") {
+                                startdate=today;
+                            }
+                           
+                        </script>
+                       
+                        <dl>
+                            <dt>购买数量</dt>
+                            <dd>
+                                <div class="stock-box">
+                                    <input id="commodityArticleId" type="hidden" value="{model.id}" />
+                                    <input id="commodityGoodsNo" type="hidden" value="{model.fields[goods_no]}" />
+                                    <input id="commodityGoodsId" type="hidden" value="0" />
+                                    <input id="commoditySelectNum" type="text" maxlength="9" value="1" maxvalue="{model.fields[stock_quantity]}" onkeydown="return checkNumber(event);" />
+                                    <a class="add" onclick="addCartNum(1);">+</a>
+                                    <a class="remove" onclick="addCartNum(-1);">-</a>
+                                </div>
+                                <span class="stock-txt">
+                                    库存<em id="commodityStockNum">{model.fields[stock_quantity]}</em>件
+                                </span>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dd>
+                                <div id="buyButton" class="btn-buy">
+                                    <button class="buy over" onclick="cartAdd(this,'{config.webpath}',1,'<%linkurl("shopping")%>');" disable="disable">立即预订</button>
+									<!--<button class="buy over"  id="submbuy" disable="disable">立即预订</button>-->
+                                    <button class="add over" onclick="cartAdd(this,'{config.webpath}',0,'<%linkurl("cart")%>');" disable="disable">加入购物车</button>
+                                    <!--<span id="submbuy" onclick='cartAdd(this,' {config.webpath}',1,'<%linkurl("shopping")%>');'  disable="disable">立即预订</span><span class="Love WishList" onclick='cartAdd(this,' {config.webpath}',0,'<%linkurl("cart")%>');' disable="disable">加入购物车</span>-->
+                                </div>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dd>
+                                <div class="shareinfo">
+                                    <%template src=/_share_js.html/%>
+                                </div>
+                            </dd>
+                        </dl>
+                      
+                        <!--<span id="submbuy">立即预订</span><span class="Love WishList">加入购物车</span>-->
+                    </div>
+                </div><!-- 售罄开始 -->
+                <!-- 售罄结束  -->
+
+                <div class="clear"></div>
+            </div><input name="useremail" id="useremail" type="hidden" />
+            <input name="userphone" id="userphone" type="hidden" />
+            <input name="touristid" id="touristid" value="{model.id}" type="hidden" />
+            <input name="currencysignal" id="currencysignal" type="hidden" value="¥" />
+            <input name="currencycode" id="currencycode" type="hidden" value="0" />         <!--产品详细信息-->
+            <!--导航-->
+        </div>
+        <div class="tour-nav-wrap">
+            <div class=" tour-navcontent">
+                <ul class="tour-nav">
+                    <li>
+                        <a href="#tour_ccxq">产品详情<b></b></a>
+                    </li>
+                    <li>
+                        <a href="#tour_fysm">费用说明<b></b></a>
+                    </li>
+                    <li>
+                        <a href="#tour_ydxz">预订须知<b></b></a>
+                    </li>
+                    <li>
+                        <a href="#tour_syff">使用方法<b></b></a>
+                    </li><!--如果评价数量为o则不显示-->
+
+                    <li><a class="tourreply" href="#tour_ljpj">商品评价<b></b></a></li>
+                </ul>
+                <div class="FixedBuy">
+                    <div class="FixedPrice">
+                        ¥{model.fields[sell_price]}起
+
+                    </div>
+                    <div id="submbuy01" class="FixedBuyBtn">立即预订</div>
+                    <div class="Love FixedWishBtn" onclick="cartAdd(this,'{config.webpath}',0,'<%linkurl("cart")%>');" >加入购物车</div>
+                    <!--<div class="ShareTitle">分享至</div>
+                    <div class="ShareBox">
+                     
+                        <a class="Share wechat" href="#" target="_blank"></a>
+                        <a class="Share weibo" href="#" target="_blank"></a>
+                        <div class="Share more">
+                            <div class="MoreGroup">
+                                <a class="Share tweibo" href="#" target="_blank"></a>
+                                <a class="Share qzone" href="#" target="_blank"></a>
+                                <a class="Share douban" href="#" target="_blank"></a>
+                            </div>
+                        </div>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+        <div class="tour-nav-wrap2"></div>
+        <div class="contentdetail">
+            <div id="tour_content_warp" name="tour_content_warp">
+                <div class="tour-info">
+                    <%set DataTable content=get_article_list(channel, 0, 0,1, "status=0")%>
+                    <%foreach(DataRow dr in content.Rows)%>
+                    <div class="tour-info-group" id="tour_ccxq"> {dr[product_info]}</div>
+                    <div class="tour-info-group" id="tour_fysm">{dr[fee_info]}</div>
+                    <div class="tour-info-group" id="tour_ydxz">{dr[order_info]}</div>
+                    <div class="tour-info-group" id="tour_syff">{dr[use_info]}</div>
+                    <%/foreach%>
+                    <div class="tour-info-group" id="tour_ljpj">
+                        <!--用户评论-->
+                        <%if(model.is_msg==1)%>
+                        <%template src="_comment_box.html"%>
+               
+                        <%/if%>
+                 
+                    </div>
+                </div>
+             
+                <div class="RightLike">
+                    <div class="RightGroup">
+                        <span class="Head">推荐商品</span>
+                        <%set DataTable redPhoto=get_article_list(channel, 0, 0,4, "status=0")%>
+                        <%foreach(DataRow dr in redPhoto.Rows)%>
+                        <a class="Product" title="{dr[title]}" href='<%linkurl("tourist_mall_show",{dr[id]})%>
+                            ' target="_blank">
+                            <i class="LazyImgBox">
+                                <img width="262" height="179" class="lazy_img" src="{dr[img_url]}" />
+                            </i>
+                            <span>
+                                {dr[title]}
+                            </span><font>¥ {dr[sell_price]}</font>
+                        </a>
+                        <%/foreach%>
+                    </div>
+                </div>
+            </div><!-- 提交的业务数据 -->
+            <div class="clear"></div>
+            <div class="RightBox" style="display: none;">
+
+                <div class="KeFu"></div>
+                <div class="Line"></div>
+                <div class="BackToTop"></div>
+            </div>
+            <div class="KeFuGroup" style="display: none; width: 120px; height: 200px; position: fixed; bottom: 152px; right: 52px; z-index: 99999; background-color: rgba(136, 180, 34, 1); ">
+                <div class="ACloseBtn"></div>
+                <div class="kefurenyuan1"><a href="tencent://message/?uin=1132732514&Site=qq&Menu=yes"><img src="<%templateskin%>/images/QQPic.png" />客服1</a></div>
+                <div class="kefurenyuan2"><a href="tencent://message/?uin=1132732514&Site=qq&Menu=yes"><img src="<%templateskin%>/images/QQPic.png" />客服2</a></div>
+                <div class="kefurenyuan2"><a href="tencent://message/?uin=1132732514&Site=qq&Menu=yes"><img src="<%templateskin%>/images/QQPic.png" />客服3</a></div>
+            </div>
+        </div><!-- sku选择弹出框 -->
+        <div class="hwlayout_box" id="paymentDiv" style="display: none;">
+            <a title="关闭"
+               class="hwlayout_box_close paymentDiv_close" href="javascript:void(0)">
+                <img width="17" src="<%templateskin%>/images/tourbeta_box_close.png" />
+            </a>
+            <div class="hwlayout_box_text">
+                <div class="hwlayout_box_lft">
+                    <!-- 日历start -->
+                    <div class="datetime">
+                        <div class="title"><b></b><span id="errTips">使用日期</span></div>
+                        <div id="myDateTime">
+                            <div class="calendar">
+                                <div class="outer clearfix" id="calendarcontainer">
+
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                    <!-- 日历end -->                 
+                    <!-- sku-selected start -->
+                    <div id="skuSelect">
+                       
+                    </div>
+                    <!-- sku-selected end -->
+                </div>
+                <div class="hwlayout_box_rgt">
+                    <!--旅游信息-->
+                    <div class="ydxx">
+                        <div class="field-title">预订信息</div>
+                        <div class="field-text" id="tripInfo">
+                            <p>使用日期：<span id="sriqi"></span></p>
+                            <p>选择套餐：<span id="caotan"></span></p>
+                        </div>
+                    </div><!--乘客类型-->
+                    <div class="field-ctn rsxz">
+                        <div class="field-title" id="skuunit_name">人数选择</div>
+                        <div class="field-text" id="field-text">
+                            <div class="field-type">
+                                <span class="field-range"> 成人(17-99)</span>
+                            </div>
+                            <div class="num-counter">
+                                <span class="reduce" onclick="addCartNum1(-1)">-</span>
+                                <input class="nums" id="chengrenno" value="1" />
+                                <span class="add" onclick="addCartNum1(1)">+</span>
+                            </div>
+                            <div class="field-price">
+                                <em class="display: inline;">¥80</em>
+                            </div>
+                        </div>
+                        <div class="field-text" id="field-text">
+                            <div class="field-type">
+                                <span class="field-range"> 儿童(8-11)</span>
+                            </div>
+                            <div class="num-counter">
+                                <span class="reduce" onclick="addCartNum2(-1)">-</span>
+                                <input class="nums" id="ertongno" value="1" />
+                                <span class="add" onclick="addCartNum2(1)">+</span>
+                            </div>
+                            <div class="field-price">
+                                <em class="display: inline;">¥80</em>
+                            </div>
+                        </div>
+                    </div><!--购买相关-->
+                    <div class="field-ctn gmxg">
+                        <div class="total" id="totalMoney">
+                            总价<b>¥80</b>
+                        </div>
+                        <div class="saving" id="savingMoney">
+                            共为您节省<span>¥80</span>
+                        </div>
+                        <div class="btns" id="buyNow">立即预订</div>
+                    </div>
+                    <div class="bg02">
+                        <!--错误提示-->
+                        <div class="field-ctn error" id="errorTips" style="display: none;"></div><!-- 400-->
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div><!--content end-->
+        <!--footer begin-->
+        <%template src="_footer.html"%>
+        <!--footer end-->
+        <!--footer end-->
+    </div>
+    <div id="load_img" style="display: none;">
+        &nbsp;<img src="<%templateskin%>/images/xubox_loading2.gif" />&nbsp;购买中...&nbsp;
+    </div>
+    <script type="text/javascript" src="<%templateskin%>/js/info_detail.js"></script>
+    <!-- poi -->
+    <script type="text/javascript" src="<%templateskin%>/js/js.js"></script>
+    <script type="text/javascript" src="<%templateskin%>/js/jquery.blockUI.js"></script>
+    <script>
+        var json = { "errMsg": "fail" };
+       
+    </script>
+  
+    <script type="text/javascript" charset="utf-8" src="<%templateskin%>/js/common.js"></script>
+    <script type="text/javascript" charset="utf-8" src="{config.webpath}scripts/jquery/jquery.jqzoom.js"></script>
+    <script type="text/javascript" charset="utf-8" src="<%templateskin%>/js/picture.js"></script>
+    <script type="text/javascript" charset="utf-8" src="<%templateskin%>/js/cart.js"></script>
+    <script type="text/javascript" src="<%templateskin%>/js/position.js"></script>
+    <script type="text/javascript" src="<%templateskin%>/js/JTimerzhaocl_1.3.js"></script>
+    <!--<script src="<%templateskin%>/js/Calendar.js"></script>
+    <script src="<%templateskin%>/js/fun.js"></script>
+    <script src="<%templateskin%>/js/initcalendar.js"></script>-->
+    <script type="text/javascript">
+        $(function(){
+            //TAB切换
+            //tabs('#goodsTabs','click');
+            //智能浮动层
+            //$("#tabHead").smartFloat();
+            //初始化规格事件
+            initGoodsSpec('{config.webpath}tools/submit_ajax.ashx?action=get_article_goods_info');
+        });
+    </script>
+</body>
+</html>

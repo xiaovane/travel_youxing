@@ -1,0 +1,255 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <title>{model.title} - {site.name}</title>
+<meta name="keywords" content="{model.seo_keywords}" />
+<meta name="description" content="{model.seo_description}" />
+<link href="{config.webpath}css/pagination.css" rel="stylesheet" />
+<link href="<%templateskin%>/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" charset="utf-8" src="{config.webpath}scripts/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%templateskin%>/js/common.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="<%templateskin%>/css/CategoryInfo.css" />
+    <script type="text/javascript" src="<%templateskin%>/js/jquery-1.9.1.js"></script>
+    <!--[if IE]>
+    <script>
+        (function () {
+            if (!/*@cc_on!@*/0)return;
+            var e = "abbr,article,aside,audio,canvas,datalist,details,dialog,eventsource,figure,footer,header,hgroup,mark,menu,meter,nav,output,progress,section,time,video".split(','), i = e.length;
+            while (i--) {
+                document.createElement(e[i])
+            }
+        })()
+    </script>
+    <![endif]-->
+    <!-- <base target="_blank"> -->
+    <style>
+        .Zebra_DatePicker td.dp_selected {
+            background: rgba(137, 184, 35,1);
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <%template src="header.html"%>
+		
+   <!--C#代码-->
+    <%csharp%>
+      string orderby="add_time desc,id asc";
+      string strBy=PLRequest.GetQueryString("orderby");
+      if(strBy=="click"){
+        orderby="click desc";
+      }else if(strBy=="min"){
+        orderby="sell_price asc";
+      }else if(strBy=="max"){
+        orderby="sell_price desc";
+      }
+      string strwhere="status=0";
+      int minPrice=PLRequest.GetQueryInt("min_price",0);
+      if(minPrice>0){
+        strwhere+="and sell_price>="+minPrice;
+      }
+      int maxPrice=PLRequest.GetQueryInt("max_price",0);
+      if(maxPrice>0){
+        strwhere+="and sell_price<="+maxPrice;
+      }
+      Dictionary<string,string> dicSpecIds=new Dictionary<string,string>();
+      for (int i = 0; i < Request.QueryString.AllKeys.Length; i++)
+      {
+        string paramKey=Request.QueryString.GetKey(i).ToString();
+        int paramValue=Utils.StrToInt(Request.QueryString[i].ToString(),0);
+        if(paramKey.StartsWith("s_") && paramValue>0)
+        {
+          dicSpecIds.Add(paramKey,paramValue.ToString());
+        }
+      }
+    <%/csharp%>
+    <!--/C#代码-->
+        <div class="content">
+            <div class="c-wrapper">
+                <!-- 筛选项 begin -->
+                <div class="searched">
+                    <dl class="yxz">
+                        <dt style="background: none;">您已选择 :</dt>
+                        <dd style="margin-left: 15px;">
+                            <!-- <span>主题</span> -->
+                            <span class="cur_content">
+                                <span id="check_theme">跟团游</span>
+                                <a class="search_cancel" id="themeview" href="javascript:void(0)"
+                                   rel="Ticket">×</a>
+                            </span>
+
+                        </dd>
+                    </dl>
+                    <dl class="mdd">
+                        <dt>目 的 地 :</dt>
+                        <dd id="mdd">
+                            <span class="MoreBtn" id="ShowMore" style="display: none;">查看更多∨</span>
+                            <span class="MoreBtn" id="HideMore" style="display: none;">收起∧</span>
+                            <!--<a class="search_continent_click loc" href="#">亚洲</a>
+                            <a class="search_continent_click loc" href="#">亚洲</a>
+                            <a class="search_continent_click loc" href="#">亚洲</a>
+                            <a class="search_continent_click loc" href="#">亚洲</a>
+                            <a class="search_continent_click loc" href="#">亚洲</a>
+                            <a class="search_continent_click loc" href="#">亚洲</a>-->
+                        </dd>
+                        <div class="clear"></div>
+                    </dl>
+                    <dl class="leixing">
+                        <dt>产品类型 :</dt>
+                        <dd id="leixing">
+                            <!--<a class="search_ltheme_click the theme_list" href="#">类别1</a> 
+                            <a class="search_ltheme_click the theme_list" href="#">类别1</a> 
+                            <a class="search_ltheme_click the theme_list" href="#">类别1</a> 
+                            <a class="search_ltheme_click the theme_list" href="#">类别1</a>--> 
+                        </dd>
+                        <div class="clear"></div>
+                    </dl>
+                    <dl class="playdate">
+                        <dt>游玩日期 :</dt>
+                        <dd id="daterange">
+                            <span>
+                                <a class="date_range_click" href="javascript:void(0)"
+                                   rel="2016-05-16~2016-05-16">今天</a>
+                            </span>
+                            <span>
+                                <a class="date_range_click" href="javascript:void(0)" rel="2016-05-17~2016-05-17">明天</a>
+                            </span>                         <span>
+                                <a class="date_range_click"
+                                   href="javascript:void(0)" rel="2016-05-16~2016-05-22">本周</a>
+                            </span>                             <span class="DateSelect">
+                                <input id="StartDate" type="text" placeholder="开始时间" value="" /> — <input id="EndDate" type="text" placeholder="结束时间" value="" /><input class="querydate" id="querydate" type="button" value="确定" />
+                            </span>
+                        </dd>
+                        <div class="clear"></div>
+                    </dl>
+                    <div class="clear"></div>
+                </div>
+                <input id="cityName" type="hidden" value="AllCitys" />
+                <input id="countryName" type="hidden" />
+                <input id="continentName" type="hidden" />
+                <input id="themeEname" type="hidden" value="Ticket" />
+                <input id="isFreeSale" type="hidden" value="allIsFreeSale" />
+                <input id="labelName" type="hidden" value="AllLabel" />
+                <input id="timeRange" type="hidden" value="allTimeRange" />
+                <input id="orderType" type="hidden" value="1" />
+                <input id="search_keyword" type="hidden" />
+                <input id="search_applicableCrowd" type="hidden" />
+                <input id="sort_type" type="hidden" />
+                <!-- 筛选项 end -->
+                <!-- 筛选列表 begin -->
+                <input id="orderType" type="hidden" />
+                <div class="searchlist">
+                    <!-- 排序方式 begin -->
+                    <div class="sort">
+                        <ul>
+                            <li><b class="sort_click" id="sort_default">综合</b></li>
+                            <li><b class="sort_click" id="sale_amount">销量优先</b></li>
+                            <li>
+                                <b class="sort_click" id="soldprice_yuan">
+                                    价格<i class="PriceHigh"></i><i class="PriceLow"></i>
+                                </b>
+                            </li>
+                           
+                        </ul>
+                        <div class="pagelist">
+                            <span class="prev">
+                                <a href="javascript:void(0);"></a>
+                            </span><span class="next"><a href="#"></a></span>
+                        </div>
+                    </div>
+                    <!-- 筛选结果 begin -->
+                    <div class="lists">
+                        <span class="product">
+                            <dl class="products">
+                                <dt class="model1">
+                                    <div class="img" style="background: rgb(204, 204, 204); width: 280px; height: 146px;">
+                                        <img width="280" height="146" class="lazy_img" alt="" src="" data-original="images/8a2dae714fdfa8db014ff91865bb5764.jpg" />
+                                    </div>
+
+                                    <div class="add"><b></b> 西班牙 - 马德里</div>
+                                    <div class="Love"><span>加入购物车</span><i></i></div>
+                                    <div class="infos" style="display: none;">
+                                        <a class="SearchLinker" href="#"
+                                           target="_blank">
+                                            <p>
+
+                                                马德里必去景点NO.1，免排队快速进入			；海玩网购票比您在当地购买门票更便宜
+                                                ；超长有效期，可在景点开放任意时间进入...
+
+                                            </p>
+                                        </a>
+                                    </div>
+                                </dt>
+                                <dd>
+                                    <div class="name">马德里王宫/马德里皇宫Royal Palace (免排队门票)</div>
+                                    <div class="price" id="price_7921">
+                                        <div class="vip">
+                                            <b>¥<em id="7921">72</em></b>起
+
+                                        </div>
+                                        <div class="payment">门市价：¥85.0</div>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </span>
+                         <ul>
+        <%set DataTable goodsList=get_article_list(channel,category_id,dicSpecIds,pagesize,page,strwhere,orderby,out totalcount)%><!--数据-->
+        <%set pagelist = Utils.OutPageList(pagesize, page, totalcount, linkurl("gsearch", "?category_id="+category_id+"&min_price="+minPrice+"&max_price="+maxPrice+"&orderby="+strBy+"&page=__id__"+get_article_spec_param(dicSpecIds,"")), 8)%><!--分页-->
+        <%foreach(DataRow dr in goodsList.Rows)%>
+        <li>
+          <div class="wrap-box">
+            <div class="img-box">
+              <a title="{dr[title]}" href="<%linkurl("goods_show",{dr[id]})%>">
+                <%if({dr[is_red]}=="1")%>
+                <div class="abs-txt">推荐</div>
+                <%/if%>
+                <img src="{dr[img_url]}" />
+              </a>
+            </div>
+            <div class="info">
+              <h3><a title="{dr[title]}" href="<%linkurl("goods_show",{dr[id]})%>">{dr[title]}</a></h3>
+              <div class="col">
+                <b>￥{dr[sell_price]}</b>元
+              </div>
+              <div class="col">
+                <i>库存：{dr[stock_quantity]}件</i>
+                市场价：<s>{dr[market_price]}</s>
+              </div>
+            </div>
+          </div>
+        </li>
+        <%/foreach%>
+        <%if(goodsList.Rows.Count==0)%>
+        <div class="nodata">暂时无法找到您想要的商品！</div>
+        <%/if%>
+      </ul>
+                    </div><!-- 筛选结果 end -->                 <!-- 分页开始 -->
+
+                   
+					 <!--页码列表-->
+    <div class="page">
+      <div class="digg">{pagelist}</div>
+    </div>
+    <!--/页码列表-->
+                </div><!-- 筛选列表 end -->
+            </div>
+        </div>
+        <%template src="footer.html"%>
+           
+        <div id="load_img" style="display: none;">
+            <img src="<%templateskin%>/images/xubox_loading2.gif" />&nbsp;搜索中...&nbsp;
+        </div>
+
+        <script type="text/javascript">
+            var searchData = {
+            resLoc: [{"chinese_name":"亚洲","countryList":[{"chinese_name":"港、澳","cityList":[{"chinese_name":"香港","english_name":"Hong Kong","id":140,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"澳门","english_name":"Macau","id":147,"menusort":0,"seq":0,"status":0,"type":3}],"english_name":"GangAoTai","menusort":0},{"chinese_name":"台湾","cityList":[{"chinese_name":"台北","english_name":"Taipei","id":107,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"阿里山","english_name":"Alishan","id":327,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"新竹","english_name":"Hsinchu","id":326,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"日月潭","english_name":"Riyuetan","id":328,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"宜兰","english_name":"Ilan","id":323,"menusort":0,"seq":0,"status":0,"type":3}],"english_name":"Taiwan","menusort":0},{"chinese_name":"日本","cityList":[{"chinese_name":"大阪","english_name":"Osaka","id":317,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"东京","english_name":"Tokyo","id":138,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"京都","english_name":"Kyoto","id":69,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"神户","english_name":"Kobe","id":553,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"冲绳","english_name":"Okinawa","id":68,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"千叶","english_name":"Chiba","id":812,"menusort":0,"seq":0,"status":0,"type":3}],"english_name":"Japan","menusort":0},{"chinese_name":"泰国","cityList":[{"chinese_name":"普吉岛","english_name":"Phuket","id":168,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"清迈","english_name":"Chiang Mai","id":167,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"曼谷","english_name":"Bangkok","id":166,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"芭提雅","english_name":"Pattaya","id":449,"menusort":0,"seq":0,"status":0,"type":3}],"english_name":"Thailand","menusort":0},{"chinese_name":"新加坡","cityList":[{"chinese_name":"新加坡","english_name":"Singapore City","id":121,"menusort":0,"seq":0,"status":0,"type":3}],"english_name":"Singapore","menusort":0},{"chinese_name":"韩国","cityList":[{"chinese_name":"首尔","english_name":"Seoul","id":284,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"济州","english_name":"Jeju","id":286,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"京畿道","english_name":"Gyeonggi do","id":434,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"釜山","english_name":"Busan","id":288,"menusort":0,"seq":0,"status":0,"type":3}],"english_name":"South Korea","menusort":0},{"chinese_name":"马来西亚","cityList":[{"chinese_name":"吉隆坡","english_name":"Kuala Lumpur","id":119,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"新山","english_name":"Johor Bahru","id":122,"menusort":0,"seq":0,"status":0,"type":3}],"english_name":"Malaysia","menusort":0}],"english_name":"Asia"},{"chinese_name":"欧洲","countryList":[{"chinese_name":"法国","cityList":[{"chinese_name":"巴黎","english_name":"Paris","id":56,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"尼斯","english_name":"Nice","id":57,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"里昂","english_name":"Lyon","id":272,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"马赛","english_name":"Marseille","id":61,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"莱塞佩斯","english_name":"Les Epesses","id":873,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"里尔","english_name":"Lille","id":594,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"卡昂","english_name":"Caen","id":648,"menusort":0,"seq":0,"status":0,"type":3}],"english_name":"France","menusort":0},{"chinese_name":"意大利","cityList":[{"chinese_name":"罗马","english_name":"Rome","id":48,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"威尼斯","english_name":"Venice","id":268,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"佛罗伦萨","english_name":"Florence","id":54,"menusort":0,"seq":0,"status":0,"type":3}],"english_name":"Italy","menusort":0},{"chinese_name":"英国","cityList":[{"chinese_name":"伦敦","english_name":"London","id":8,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"爱丁堡","english_name":"Edinburgh","id":153,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"温莎","english_name":"Windsor","id":709,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"利物浦","english_name":"Liverpool ","id":706,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"贝尔法斯特","english_name":"Belfast","id":707,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"阿普克罗斯半岛","english_name":"Applecross","id":674,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"沃里克","english_name":"Warwick","id":741,"menusort":0,"seq":0,"status":0,"type":3}],"english_name":"United Kingdom","menusort":0},{"chinese_name":"瑞士","cityList":[{"chinese_name":"苏黎世","english_name":"Zurich","id":145,"menusort":0,"seq":0,"status":0,"type":3}],"english_name":"Switzerland","menusort":0},{"chinese_name":"葡萄牙","cityList":[{"chinese_name":"里斯本","english_name":"Lisbon","id":191,"menusort":0,"seq":0,"status":0,"type":3}],"english_name":"Portugal","menusort":0},{"chinese_name":"德国","cityList":[{"chinese_name":"柏林","english_name":"Berlin","id":151,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"法兰克福","english_name":"Frankfurt am Main","id":293,"menusort":0,"seq":0,"status":0,"type":3}],"english_name":"Germany","menusort":0},{"chinese_name":"俄罗斯","cityList":[{"chinese_name":"莫斯科","english_name":"Moscow","id":364,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"圣彼得堡","english_name":"St Petersburg","id":432,"menusort":0,"seq":0,"status":0,"type":3}],"english_name":"Russia","menusort":0},{"chinese_name":"西班牙","cityList":[{"chinese_name":"巴塞罗那","english_name":"Barcelona","id":92,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"马德里","english_name":"Madrid","id":114,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"格拉纳达","english_name":"Granada","id":225,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"塞维利亚","english_name":"Sevilla","id":94,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"瓦伦西亚","english_name":"Valencia","id":177,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"托莱多","english_name":"Toledo","id":178,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"马略卡岛","english_name":"Majorca","id":217,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"萨拉曼卡","english_name":"Salamanca","id":218,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"萨拉戈萨","english_name":"Zaragoza","id":228,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"毕尔巴鄂","english_name":"Bilbao","id":628,"menusort":0,"seq":0,"status":0,"type":3}],"english_name":"Spain","menusort":0},{"chinese_name":"土耳其","cityList":[{"chinese_name":"伊斯坦布尔","english_name":"Istanbul","id":267,"menusort":0,"seq":0,"status":0,"type":3}],"english_name":"Turkey","menusort":0},{"chinese_name":"希腊","cityList":[{"chinese_name":"雅典","english_name":"Athens","id":135,"menusort":0,"seq":0,"status":0,"type":3}],"english_name":"Greece","menusort":0}],"english_name":"Europe"},{"chinese_name":"北美洲","countryList":[{"chinese_name":"美国","cityList":[{"chinese_name":"洛杉矶","english_name":"Los Angeles","id":152,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"纽约","english_name":"New York","id":112,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"拉斯维加斯","english_name":"Las Vegas","id":113,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"圣地亚哥","english_name":"San Diego","id":281,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"旧金山","english_name":"San Francisco","id":149,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"奥兰多","english_name":"Orlando","id":148,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"夏威夷","english_name":"Hawaii","id":185,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"芝加哥","english_name":"Chicago","id":273,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"波士顿","english_name":"Boston","id":274,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"佛罗里达","english_name":"Florida ","id":588,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"欧胡岛","english_name":"Oahu","id":780,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"檀香山","english_name":"Honolulu","id":156,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"华盛顿特区","english_name":"Washington","id":277,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"迈阿密","english_name":"Miami","id":275,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"奥克兰","english_name":"Auckland","id":826,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"坦帕","english_name":"Tampa","id":448,"menusort":0,"seq":0,"status":0,"type":3}],"english_name":"United States","menusort":0},{"chinese_name":"加拿大","cityList":[{"chinese_name":"多伦多","english_name":"Toronto","id":116,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"尼亚加拉瀑布","english_name":"Niagara Falls CA","id":117,"menusort":0,"seq":0,"status":0,"type":3}],"english_name":"Canada","menusort":0}],"english_name":"North America"},{"chinese_name":"大洋洲","countryList":[{"chinese_name":"澳大利亚","cityList":[{"chinese_name":"悉尼","english_name":"Sydney","id":173,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"墨尔本","english_name":"Melbourne","id":398,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"黄金海岸","english_name":"Gold Coast","id":396,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"布里斯班","english_name":"Brisbane","id":454,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"凯恩斯","english_name":"Cairns","id":397,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"拜伦湾","english_name":"byron bay","id":528,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"珀斯","english_name":"Perth","id":455,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"达尔文","english_name":"Darwin","id":457,"menusort":0,"seq":0,"status":0,"type":3}],"english_name":"Australia","menusort":0},{"chinese_name":"新西兰","cityList":[{"chinese_name":"奥克兰","english_name":"Auckland","id":13,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"基督城","english_name":"Christchurch","id":15,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"怀托摩","english_name":"Waitomo Glowworn Caves","id":27,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"惠灵顿","english_name":"Wellington","id":14,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"罗托鲁瓦","english_name":"Rotorua","id":18,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"西海岸冰川","english_name":"west coast","id":545,"menusort":0,"seq":0,"status":0,"type":3},{"chinese_name":"瓦纳卡","english_name":"Wanaka","id":33,"menusort":0,"seq":0,"status":0,"type":3}],"english_name":"New Zealand","menusort":0}],"english_name":"Oceania"},{"chinese_name":"非洲和中东","countryList":[{"chinese_name":"阿联酋","cityList":[{"chinese_name":"迪拜","english_name":"Dubai","id":158,"menusort":0,"seq":0,"status":0,"type":3}],"english_name":"UAE","menusort":0}],"english_name":"Africa MidEast"}],
+          resThe: [{"last_theme":[{"englise_name":"City Pass","name":"城市通票","status":0,"type":0},{"englise_name":"Theme Parks","name":"主题乐园","status":0,"type":0},{"englise_name":"Attractions","name":"景点门票","status":0,"type":0},{"englise_name":"Shows","name":"演出门票","status":0,"type":0}],"theme_en_name":"Ticket","theme_name":"门票","theme_num":0}]
+                            };
+            $("#timeRange").val("allTimeRange");
+        </script>
+        <script type="text/javascript" src="<%templateskin%>/js/CategoryInfo.js"></script>
+    </div>
+</body>
+</html>

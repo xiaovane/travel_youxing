@@ -1,0 +1,13 @@
+E:\我的项目\标准版Plumsys\dtcms4.0.1旗舰版\DTcms_4.0_sql_src_Ultimate\DTcms.Web\plugins\feedback\obj\Debug\Plumsys.Web.Plugin.Feedback.csprojResolveAssemblyReference.cache
+E:\我的项目\标准版Plumsys\dtcms4.0.1旗舰版\DTcms_4.0_sql_src_Ultimate\DTcms.Web\bin\Plumsys.Web.Plugin.Feedback.dll
+E:\我的项目\标准版Plumsys\dtcms4.0.1旗舰版\DTcms_4.0_sql_src_Ultimate\DTcms.Web\bin\Plumsys.Web.Plugin.Feedback.pdb
+E:\我的项目\标准版Plumsys\dtcms4.0.1旗舰版\DTcms_4.0_sql_src_Ultimate\DTcms.Web\plugins\feedback\obj\Debug\Plumsys.Web.Plugin.Feedback.dll
+E:\我的项目\标准版Plumsys\dtcms4.0.1旗舰版\DTcms_4.0_sql_src_Ultimate\DTcms.Web\plugins\feedback\obj\Debug\Plumsys.Web.Plugin.Feedback.pdb
+E:\我的项目\标准版Plumsys\dtcms4.0.1旗舰版\DTcms_4.0_sql_src_Ultimate\Plumsys.Web\bin\Plumsys.Web.Plugin.Feedback.dll
+E:\我的项目\标准版Plumsys\dtcms4.0.1旗舰版\DTcms_4.0_sql_src_Ultimate\Plumsys.Web\bin\Plumsys.Web.Plugin.Feedback.pdb
+E:\我的项目\标准版Plumsys\dtcms4.0.1旗舰版\DTcms_4.0_sql_src_Ultimate\Plumsys.Web\plugins\feedback\obj\Debug\Plumsys.Web.Plugin.Feedback.csprojResolveAssemblyReference.cache
+E:\我的项目\标准版Plumsys\dtcms4.0.1旗舰版\DTcms_4.0_sql_src_Ultimate\Plumsys.Web\plugins\feedback\obj\Debug\Plumsys.Web.Plugin.Feedback.dll
+E:\我的项目\标准版Plumsys\dtcms4.0.1旗舰版\DTcms_4.0_sql_src_Ultimate\Plumsys.Web\plugins\feedback\obj\Debug\Plumsys.Web.Plugin.Feedback.pdb
+D:\My Project\Youxing_web\trunk\code\Plumsys.Web\plugins\feedback\obj\Debug\Plumsys.Web.Plugin.Feedback.csprojResolveAssemblyReference.cache
+D:\My Project\Youxing_web\trunk\code\Plumsys.Web\plugins\feedback\obj\Debug\Plumsys.Web.Plugin.Feedback.dll
+D:\My Project\Youxing_web\trunk\code\Plumsys.Web\plugins\feedback\obj\Debug\Plumsys.Web.Plugin.Feedback.pdb

@@ -1,0 +1,63 @@
+﻿        <div class="Foot">
+            <div class="FootHead">
+                <div class="MainPage">
+                    <div class="FootListGroup">
+                        <ul>
+                            <li><i></i>关于我们</li>
+                            <li>
+                                <a href="<%linkurl("content","about")%>" target="_blank">优行简介</a>
+                            </li>
+                            <li><a href="<%linkurl("content","contact")%>" target="_blank">联系我们</a></li>
+                            <li>
+                                <a href="<%linkurl("content","advertises")%>" target="_blank">
+                                    职位招聘
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<%linkurl("content","league")%>" target="_blank">
+                                    加盟合作
+                                </a>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li><i></i>网站条款</li>
+                            <li>
+                                <a href="<%linkurl("content","agreement")%>" target="_blank">用户协议</a>
+                            </li>
+                            <li><a href="<%linkurl("content","privacy")%>" target="_blank">隐私保护</a></li>
+                            <li> 
+                                <a href="<%linkurl("content","provision")%>" target="_blank">版权声明</a>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li><i></i>友情链接</li>
+                            <%set DataTable linkList1=get_plugin_method("Plumsys.Web.Plugin.Link", "link", "get_link_list", 0, "is_lock=0 and is_image=0 and is_red=1")%>
+                            <%foreach(DataRow dr in linkList1.Rows)%>
+                            <li> <a target="_blank" href="{dr[site_url]}">{dr[title]}</a></li>
+                            <%/foreach%>
+                        </ul>
+                    </div>
+                    <div class="QrCodeBox">
+                        <div class="QrCode">
+                            <img src="<%templateskin%>/images/wechatcode.jpg" />
+                            <span>官方微信</span>
+                        </div>
+                        <div class="telephone">
+                            <img src="<%templateskin%>/images/telephone.png" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="FootLast">
+                <div class="MainPage">
+                    <p>Copyright © 2013-2016, All Rights Reserved.</p><span>
+                        <%=site.company%> |
+                        京ICP证 140491号 | {config.webcrod} | 旅行社业务经营许可证 L-BJ-CJ00104
+                    </span>
+                    <div style="clear: both;"></div>
+                </div>
+            </div>
+        </div>
+      <!--footer end-->
+   
+   

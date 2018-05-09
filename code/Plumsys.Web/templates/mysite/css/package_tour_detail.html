@@ -1,0 +1,480 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<%set string category_title=get_category_title(model.category_id,"跟团游")%>
+<title>{model.title} - {category_title} - {site.name}</title>
+<meta name="keywords" content="{model.seo_keywords}" />
+<meta name="description" content="{model.seo_description}" />
+<link href="<%templateskin%>/css/infoDetail.css" rel="stylesheet" type="text/css" />
+<link href="<%templateskin%>/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" charset="utf-8" src="{config.webpath}scripts/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="{config.webpath}scripts/jquery/jquery.jqzoom.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%templateskin%>/js/common.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%templateskin%>/js/picture.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%templateskin%>/js/cart.js"></script>
+</head>
+<body>
+    <div class="wrap">
+        <!--nav begin-->
+        <!--Header-->
+<%template src="header.html"%>
+<!--/Header-->
+          
+        <!--nav end-->
+        <!--content begin-->
+        <div class="content">
+            <div class="position">
+                <a style="color: black;" href="http://www.youxing.com/">
+                    首页
+                </a> &gt;<a style="color: black;" href="#">亚洲</a>
+                &gt;                <a style="color: black;" href="#">泰国</a>
+                &gt;                <a style="color: black;" href="#">普吉岛</a>
+            </div>
+			 <!--商品图片-->
+      <div class="goods-pic">
+        <!--幻灯片-->
+        <div class="pic-box">
+          <div class="pic-preview">
+            <span class="jqzoom">
+              <img />
+            </span>
+          </div>
+          <!--缩略图-->
+          <div class="pic-scroll">
+            <a class="prev">&lt;</a>
+            <a class="next">&gt;</a>
+            <div class="items">
+              <ul>
+                <%if(model.albums!=null)%>
+                <%foreach(Plumsys.Model.article_albums modelt in model.albums)%>
+                <li><img bimg="{modelt.original_path}" src="{modelt.thumb_path}"  /></li>
+                <%/foreach%>
+                <%/if%>
+              </ul>
+            </div>
+          </div>
+          <!--缩略图-->
+        </div>
+        <!--/幻灯片-->
+      </div>
+			
+          
+                <div class="show-right tour-buy" id="showBuyHtml">
+                    <h3>{model.title}</h3>
+                    <div class="price-unit">
+                        <div class="floatL price-cur-wrap">
+                            <p>
+                                <span class="buy-price"><b>¥{model.fields[market_price]}</b>起</span>
+                            </p>
+                            <p>门市价 <s>¥{model.fields[sell_price]}</s></p>
+                        </div>
+                    </div>
+                    <div class="TourDetailGroup">
+                        <div class="BuyNumBox">
+                            <span class="BuyNum">已有<font>1</font>人购买</span>
+                        </div>
+                        <div class="NewTourStarBox">
+                            <span class="CommentNum">加载中...</span>
+                        </div>
+                    </div>
+					<div class="spec-box">
+          <dl>
+            <dt>购买数量</dt>
+            <dd>
+              <div class="stock-box">
+                <input id="commodityArticleId" type="hidden" value="{model.id}" />
+                <input id="commodityGoodsId" type="hidden" value="0" />
+                <input id="commoditySelectNum" type="text" maxlength="9" value="1" maxValue="{model.fields[stock_quantity]}" onkeydown="return checkNumber(event);">
+                <a class="add" onclick="addCartNum(1);">+</a>
+                <a class="remove" onclick="addCartNum(-1);">-</a>
+              </div>
+              <span class="stock-txt">
+                库存<em id="commodityStockNum">{model.fields[stock_quantity]}</em>件
+              </span>
+            </dd>
+          </dl>
+          <dl>
+            <dd>
+              <div id="buyButton" class="btn-buy">
+                <button class="buy over" onclick="cartAdd(this,'{config.webpath}',1,'<%linkurl("shopping")%>');" >立即购买</button>
+                <button class="add over" onclick="cartAdd(this,'{config.webpath}',0,'<%linkurl("cart")%>');" >加入购物车</button>
+              </div>
+            </dd>
+          </dl>
+        </div>
+    <!--                <div class="TagList">
+                        <span title="普吉经典跳岛路线，行程安排舒适"
+                              class="Tag">普吉经典跳岛路线，行程安排舒适</span>
+                        <span title="避开拥挤人群，携老带幼优先选择"
+                              class="Tag">避开拥挤人群，携老带幼优先选择</span>
+                        <span title="普吉最大最豪华船公司，保障安全"
+                              class="Tag">普吉最大最豪华船公司，保障安全</span>
+                    </div>-->
+                    <!--<div class="btn">
+                        <span id="submbuy">立即预订</span><span class="Love WishList"><button class="add over" onclick="cartAdd(this,'{config.webpath}',0,'<%linkurl("cart")%>');" >加入购物车</button></span>
+                    </div>
+                </div><!-- 售罄开始 -->
+                <!-- 售罄结束  -->
+
+                <div class="clear"></div>
+            </div><input name="useremail" id="useremail" type="hidden" />
+            <input name="userphone" id="userphone" type="hidden" />
+            <input name="currencysignal" id="currencysignal" type="hidden" value="¥" />
+            <input name="currencycode" id="currencycode" type="hidden" value="0" />         <!--产品详细信息-->
+            <!--导航-->
+        </div>
+        <div class="tour-nav-wrap">
+            <div class=" tour-navcontent">
+                <ul class="tour-nav">
+                    <li>
+                        <a href="#tour_ccxq">产品详情<b></b></a>
+                    </li>
+                    <li>
+                        <a href="#tour_fysm">费用说明<b></b></a>
+                    </li>
+                    <li>
+                        <a href="#tour_ydxz">预订须知<b></b></a>
+                    </li>
+                    <li>
+                        <a href="#tour_syff">使用方法<b></b></a>
+                    </li><!--如果评价数量为o则不显示-->
+
+                    <li><a class="tourreply" style="display: none;" href="#LJPJMD">累计评价(0)<b></b></a></li>
+                </ul>
+                <div class="FixedBuy">
+                    <div class="FixedPrice">
+                        ¥349-409
+
+                    </div>
+                    <div class="FixedBuyBtn" id="submbuy01">立即预订</div>
+                    <div class="Love FixedWishBtn">加入购物车</div>
+                    <div class="ShareTitle">分享至</div>
+                    <div class="ShareBox">
+                        <a class="Share wechat" href="#" target="_blank"></a>                    
+                        <a class="Share weibo" href="#" target="_blank"></a>
+                        <div class="Share more">
+                            <div class="MoreGroup">
+                                <a class="Share tweibo" href="#" target="_blank"></a>  
+                                <a class="Share qzone" href="#" target="_blank"></a>                            
+                                <a class="Share douban" href="#" target="_blank"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tour-nav-wrap2"></div>
+        <div class="contentdetail">
+            <div id="tour_content_warp" name="tour_content_warp">
+                <div class="tour-info">
+                    <div class="tour-info-group" id="tour_ccxq">
+                        <!--<div class="IconGroup">
+                            <div class="IconBox Icon2">
+                                <b></b><span>服务语言</span>
+                                <p title="普通话">普通话</p>
+                            </div>
+                            <div class="IconBox Icon6">
+                                <b></b><span>适合人群</span>
+                                <p title="成人/儿童">成人/儿童</p>
+                            </div>
+                            <div class="IconBox Icon3">
+                                <b></b><span>确认时间</span>
+                                <p title="24小时内">24小时内</p>
+                            </div>
+                            <div class="IconBox Icon4">
+                                <b></b><span>入场方式</span>
+                                <p title="电子票">电子票</p>
+                            </div>
+                            <div class="IconBox Icon5">
+                                <b></b><span>退改规定</span>
+                                <p title="支持退改">支持退改</p>
+                            </div>
+                        </div>-->
+                        <div class="tour-info-content">
+                            <br /><strong>套餐说明</strong><br />
+                            本产品提供皮皮岛北+竹子岛+蚊子岛一日游行程，请按照您下榻的酒店位置，选择预订<br /><br /><strong>详细行程</strong><br /><strong>
+                                08:00-09:30&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;司机到酒店接您，到达码头
+                            </strong>																								 <br />
+                            您可以在码头更衣室更换泳衣，享受简单早餐（咖啡、茶点），专业中文导游为您讲解行程安排后，出发前往皮皮岛北部<br /><strong>
+                                10:30-12:00&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;抵达皮皮岛北
+                            </strong>																								 <br />
+                            在这里进行第一次浮潜，海水清澈，热带小鱼很多，浮潜结束后登上皮皮岛<br /><strong>
+                                12:00-13:00&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;午餐时间
+                            </strong>																								 <br />
+                            在皮皮岛上的大自然度假村享用当地泰餐<br /><strong>
+                                13:00-14:30&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;前往竹子岛
+                            </strong>																								 <br />
+                            登上竹子岛，享受白沙和日光浴，海边游泳<br /><strong>
+                                14:30-15:30&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;前往蚊子岛
+                            </strong>																								 <br />
+                            在蚊子岛周边海域进行第二次浮潜，这里的珊瑚很漂亮<br /><strong>
+                                15:30-16:00&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;返回码头，司机送您回酒店
+                            </strong>
+                            <br /><br /><strong>景点介绍</strong><br /><strong>皮皮岛北的浮潜点</strong><br />
+                            皮皮岛以柔软洁白的沙滩，宁静碧蓝的海水著称，北部有一处绝佳的浮潜地点，海水平静，清澈见底，热带小鱼成群，一边浮潜一边欣赏周围天然的喀斯特地貌<br /><br /><br /><strong>大自然度假村餐厅</strong><br />
+                            餐厅临海，有270度海景露台，午餐是泰式自助，有洋葱鱿鱼圈、炸海鱼、冬阴功汤、菠萝炒鸡、炸鸡腿、空心菜等当地新鲜食材做成的美味佳肴，荤素搭配，餐厅还提供当地特色的绿豆凉糕等消暑降温<br /><br /><br /><strong>餐厅内270度海景露台</strong><br /><br /><br /><strong>美味泰式自助</strong><br /><br /><br /><strong>竹子岛</strong><br />
+                            这里沙滩细腻，不像皮皮岛是粗粒沙，海水非常清澈，但是这里小鱼不多，更适合在沙滩上休闲日光浴或在海边玩水<br /><br /><br /><strong>蚊子岛浮潜点</strong><br />
+                            原生态的小岛，这里鱼群很多，可以在浮潜时带着面包或水果喂小鱼<br /><br /><br /><br /><strong>延展阅读</strong><br />
+                            <p><br />sea star 普吉最大最奢华船公司 </p>
+                            <p>
+                                普吉岛新型的高端船公司，以各种高达上的船型和优质服务出名。船只停泊码头是普吉最高档的出海码头，专业的船员和中文导游为您全程服务，sea
+                                star公司为客人提供的美味泰式午餐也是亮点之一。
+                            </p><br /><br /><br />
+                        </div>
+                    </div>
+                    <div class="tour-info-group" id="tour_fysm">
+                        <div class="ProInfoBox">
+                            <p class="TourInfoHeadBig"><i class="RightIcon"></i>费用包含</p><br />
+                            <div class="TourInfoMsg">
+                                <span class="InfoBox">
+                                    酒店码头往返接送服务<br />
+                                    行程期间交通费用<br />																																												专业中文导游服务<br />
+                                    行程包含大自然度假村午餐 						 (矿泉水、水果)
+                                    <br />
+                                </span>
+                            </div><span class="MoreBtn">查看更多</span>
+                            <span class="MoreBtn2" style="display: none;">收起</span>
+                        </div>
+                        <div class="ProInfoBox">
+                            <p class="TourInfoHeadBig"><i class="WrongIcon"></i>费用不包含</p><br />
+                            <div class="TourInfoMsg2">
+                                <span class="InfoBox">
+                                    【小费】100-200泰铢<br />    个人消费和其它未提及费用<br />
+                                </span>
+                            </div><span class="MoreBtn">查看更多</span>                         <span class="MoreBtn2"
+                                                                                                  style="display: none;">收起</span>
+                        </div>
+                    </div>
+                    <div class="tour-info-group" id="tour_ydxz">
+                        <div class="ProInfoBox">
+                            <p class="TourInfoHeadBig">注意事项</p>
+                            <p>
+                                <br /><strong>【预订说明】 预订时选定的日期即为您出行的唯一日期</strong><br /><strong>购买限制</strong>
+                                仅限持有中国护照的公民购买<br /><strong>年龄政策</strong>											 0-3(含)周岁婴儿					在成年人陪同下
+                                可免费参加行程					；								 4-12(含)周岁儿童					在成年人陪同下					请按儿童价预订					；
+                                <strong>享受优惠价格时，请携带护照等证明优惠年龄的有效证件，年龄以出发日期为准</strong>
+                                <br /><strong>健康要求</strong>
+                                预订本产品前请确保自身身体条件适合本次外出旅游，如您为孕妇或有心脏病、高血压、呼吸系统疾病等病史，请在征得医院专业医生同意后再行预订<br />
+                                手术后、骨质疏松、颈腰椎疾病、严重晕船和有其他不适合乘坐快艇出海的疾病客人，不建议参加此行程<br /><strong>免责条款</strong>
+                                出行须知：因个人原因迟到或未参加行程，海玩网不予负责且不退款<br />
+                                行程调整：本行程可能由于天气、罢工、安全等原因临时变更或暂停，海玩会根据实际情况给予相应退款<br />
+                                中途脱团：行程中途脱团将不退款，且由此导致的各种人身安全、财产安全问题，海玩网不予负责<br /><strong>着装建议</strong>
+                                建议您穿着舒适凉爽的衣裤<br /><strong>温馨提示</strong>
+                                建议准备物品：泳装、替换衣服、毛巾、防晒用品、照相机、凉鞋或拖鞋<br />
+                            </p>
+                        </div>
+                        <div class="ProInfoBox">
+                            <p class="TourInfoHeadBig">退改规定</p>
+                            <p>
+                                <br />出行日期前2天以内，取消订单将不退款; 出行日期前2天及以上，免费取消订单<br />※ 出行前N天不含出行当日。例：出行日为周五，则出行前3天为周二
+                            </p>
+                        </div>
+                    </div>
+                    <div class="tour-info-group" id="tour_syff">
+                        <div class="ProInfoBox tour-info-content">
+                            <p class="TourInfoHeadBig">使用方法</p><br />
+                            <p>
+                                <br /><strong>收到票券类型</strong><br />
+                                预订成功后，您将收到海玩订单信息邮件 (含电子码)，请将电子码下载保存到手机中<br /><strong></strong>
+                                <br /><strong>出发与返回</strong><br /><strong>票券使用方法：</strong>				请携带<span style="color: red;">电子版预订确认单</span>
+                                ，在工作人员来酒店接您时出示<br /><strong>出发时间：</strong>具体的出发时间将在预订成功后，出现在<span style="color: red;"></span>中，请您注意查收<br />
+                                请提前15分钟做好出发准备，您将与前来接您的工作人员在酒店大堂会面<br />
+                                由于当天路况以及接送的先后顺序，即使超过约定时间，请依然在酒店大堂等待工作人员，请保持您的手机畅通<br /><strong>超出服务范围：</strong>由于酒店与集合地点的距离各不相同，如果因此产生额外的接送费用
+                                (或者超出接酒店范围)，工作人员会在预订成功后与您进行二次确认
+                                。<br />免费接送区：巴东、卡伦、卡塔、普吉镇、查龙、卡图<br />额外付20元接送区：卡马拉、苏林、邦涛、拉古那、塔琅<br />
+                                额外付60元接送区：攀牙湾、迈考、奈通、奈扬、拉威、奈函<br /><span style="color: red;">
+                                    ※
+                                    如您在预订时填写的入住酒店有临时调换，请及时告知							，我们将再次确认您所提供的酒店信息
+                                </span><br /><strong>游玩时长：<br /></strong>					行程时长：8-9小时<br />
+                                游玩时长：5小时<br />																			单程车程10-30公里
+                                ，行车用时30-60分钟<br /><strong>结束地点：</strong>行程结束后，工作人员会将您送回您下榻的酒店<br />
+                            </p>
+                        </div>
+                        <div class="tour-box-content">
+                            <div id="map-canvas"></div>
+                        </div>
+                        <div id="map_title"></div>
+                    </div>
+                    <div class="tour-info-group" id="tour_ljpj">
+                        <div id="LJPJMD" style="left: 0px; top: 0px; width: 100%; height: 100%; position: absolute;"></div><!-- 评价 -->
+
+                        <div class="tour-evaluate" id="order_comment"
+                             style="display: none;"></div>
+                    </div>
+                </div>
+                <div class="RightLike">
+                    <div class="RightGroup">
+                        <span class="Head">购买了该商品的用户还购买了</span>
+                        <a class="Product" href="http://www.haiwan.com/tourDetail/127938.html" target="_blank">
+                            <i class="LazyImgBox">
+                                <img width="262" height="179" class="lazy_img" data-original="http://img01.haiwaner.com/images/tours/ff8080814f720d10014f7418d9903356.jpg?imageMogr2/quality/100!/thumbnail/!84x84r/gravity/Center/crop/!84x84" />
+                            </i>
+                            <span>
+                                普吉BOX旅行礼盒——精选当地8项热门活动
+                                （双人体验套餐）
+                            </span><font>¥2,499</font>
+                        </a><a class="Product" href="http://www.haiwan.com/tourDetail/167154.html"
+                               target="_blank">
+                            <i class="LazyImgBox">
+                                <img width="262" height="179" class="lazy_img"
+                                     data-original="http://img01.haiwaner.com/images/tours/8a2dae715138f85801513d3e169b034c.jpg?imageMogr2/quality/100!/thumbnail/!84x84r/gravity/Center/crop/!84x84" />
+                            </i>
+
+                            <span>普吉24人定制团酒店费用</span><font>¥99,070</font>
+                        </a><a class="Product" href="http://www.haiwan.com/tourDetail/162651.html"
+                               target="_blank">
+                            <i class="LazyImgBox">
+                                <img width="262" height="179" class="lazy_img"
+                                     data-original="http://img01.haiwaner.com/images/tours/8a2dae715089af290150dc58c7dd3421.jpg?imageMogr2/quality/100!/thumbnail/!84x84r/gravity/Center/crop/!84x84" />
+                            </i>
+
+                            <span>【好色之途】泰国全境红灯区探秘体验之旅</span><font>¥299</font>
+                        </a><a class="Product" href="http://www.haiwan.com/tourDetail/169510.html"
+                               target="_blank">
+                            <i class="LazyImgBox">
+                                <img width="262" height="179" class="lazy_img"
+                                     data-original="http://img01.haiwaner.com/images/tours/8a7ca890516356f101516ae980bd2308.jpg?imageMogr2/quality/100!/thumbnail/!84x84r/gravity/Center/crop/!84x84" />
+                            </i>
+
+                            <span>普吉草地悠波球游玩套餐</span><font>¥215</font>
+                        </a>
+                    </div>
+                </div>
+            </div><!-- 提交的业务数据 -->
+
+            <form class="fm" action="/tour/fillorder.html" method="get">
+                <div id="hideMessage">
+                    <input name="adultEnd" id="adult" type="hidden" />
+                    <input name="childEnd" id="children" type="hidden" />
+                    <input name="babyEnd" id="baby" type="hidden" />                 <input name="olderEnd" id="older" type="hidden" />
+                    <input name="visitorEnd" id="visitor" type="hidden" />
+
+                    <input name="adult_num" class="total_num" id="adult_num" type="hidden" value="0" />
+                    <input name="child_num" class="total_num" id="child_num" type="hidden" value="0" />
+                    <input name="baby_num" class="total_num" id="baby_num" type="hidden" value="0" />
+                    <input name="old_num" class="total_num" id="older_num" type="hidden" value="0" />
+
+                    <input name="visitor_num" class="total_num" id="visitor_num" type="hidden" />
+                    <input name="tour_id" id="tour_id" type="hidden" value="9559" />
+                    <input name="start_time" id="start_time" type="hidden" />
+                    <input name="total_amt" id="total_amt" type="hidden" />
+                    <input name="sku_id" id="sku_id" type="hidden" />                 <input name="sys_trade_no" type="hidden" value="B20160518100158198549276" />
+                    <input id="tour_status" type="hidden" value="2" />
+                    <input name="skuunit" id="skuunit" type="hidden" />
+                </div>
+            </form>
+            <form id="submit_middle" action="/user/middleLogin" method="post">
+                <input name="params" id="middle_page" type="hidden" />
+            </form><!--tour的购买日期，数量等信息选择 end-->
+            <div class="clear"></div>
+            <div class="RightBox" style="display: none;">
+             
+                <div class="KeFu"></div>
+                <div class="Line"></div>
+                <div class="BackToTop"></div>
+            </div>
+            <div class="KeFuGroup" style="display: none; width: 120px; height: 200px; position: fixed; bottom: 152px; right: 52px; z-index: 99999; background-color: rgba(136, 180, 34, 1); ">
+                <div class="ACloseBtn"></div>
+                <div class="kefurenyuan1"><a href="#"><img src="images/QQPic.png" />客服1</a></div>
+                <div class="kefurenyuan2"><a href="#"><img src="images/QQPic.png" />客服2</a></div>
+                <div class="kefurenyuan2"><a href="#"><img src="images/QQPic.png" />客服3</a></div>
+            </div>
+        </div><!-- sku选择弹出框 -->
+        <div class="hwlayout_box" id="paymentDiv" style="display: none;">
+            <a title="关闭"
+               class="hwlayout_box_close paymentDiv_close" href="javascript:void(0)">
+                <img width="17" src="detail页面_files/tourbeta_box_close.png" />
+            </a>
+            <div class="hwlayout_box_text">
+                <div class="hwlayout_box_lft">
+                    <!-- 日历start -->
+                    <div class="datetime">
+                        <div class="title"><b></b><span id="errTips">使用日期</span></div>
+                        <div class="annotation">
+                            <!-- <span class="atn-01"><b></b>今天</span> -->
+                            <span class="atn-02"><b></b>不可选日期</span>
+                            <span class="atn-03"><b></b>可选日期</span>                         <span class="atn-04"><b></b>已选日期</span>
+                        </div>
+                        <div id="myDateTime"></div>
+                    </div><!-- 日历end -->                 <!-- sku-selected start -->
+
+                    <div id="skuSelect"></div><!-- sku-selected end -->
+                </div>
+                <div class="hwlayout_box_rgt">
+                    <!--旅游信息-->
+                    <div class="ydxx">
+                        <div class="field-title">预订信息</div>
+                        <div class="field-text" id="tripInfo"></div>
+                    </div><!--乘客类型-->
+                    <div class="field-ctn rsxz">
+                        <div class="field-title" id="skuunit_name"></div>
+                        <div class="field-text" id="field-text"></div>
+                    </div><!--购买相关-->
+                    <div class="field-ctn gmxg">
+                        <div class="total" id="totalMoney"></div>
+                        <div class="saving" id="savingMoney"></div>
+                        <div class="btns" id="buyNow">立即预订</div>
+                    </div>
+                    <div class="bg02">
+                        <!--错误提示-->
+                        <div class="field-ctn error" id="errorTips" style="display: none;"></div><!-- 400-->
+
+                        <div class="field-ctn tel400">
+                            <p style="cursor: pointer;">
+                                有问题？点击这里找客服
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div><!--content end-->
+        <%template src="footer.html"%>
+          
+    <div id="load_img" style="display: none;">
+        &nbsp;<img src="<%templateskin%>/images/xubox_loading2.gif" />&nbsp;购买中...&nbsp;
+    </div>
+    <script type="text/javascript" src="<%templateskin%>/js/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="<%templateskin%>/js/infoDetail.js"></script>
+    <script>
+        $(".zxkfli").click(function () {
+            $("iframe").css("margin-right", "");
+        })
+
+        var tourId = '9559';
+        var imageHead = '';
+        var min_days_before_book = parseInt('1');
+        /**
+         * 异步加载热门图片
+         * @author tian
+         */
+        var public = common_checkbrowse();
+        var showeffect = "";
+        if ((public['is'] == 'msie' && public['ver'] < 8.0)) { //根据浏览器版本来显示不同的滤镜效果
+            showeffect = "show";
+        } else {
+            showeffect = "fadeIn";
+        }
+        //滚动停止加载
+        $("img.lazy_img").lazyload({
+            event: "scroll",
+            effect: showeffect
+        });
+
+        
+
+        //推荐
+        $(".recomm_title:first").addClass("hover");
+        $(".related-img:first").show();
+    </script>
+    <!-- poi -->
+    <script type="text/javascript" src="<%templateskin%>/js/js.js"></script>
+    <script>
+        var json = { "errMsg": "fail" };
+    </script>
+
+    <script type="text/javascript" src="<%templateskin%>/js/position.js"></script>
+</body>
+</html>
