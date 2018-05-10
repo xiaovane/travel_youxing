@@ -1,18 +1,29 @@
 项目简介
+
 Travel_YouXing 项目是给一家小型旅游公司做的产品，基于开源框架DTcms二次开发，使用mvc设计模式+MSSQL，采用Jquery和CSS3界面设计，兼容IE8及以上主流浏览器响应式后台管理界面
 
 内置功能
+
 用户管理：用户是系统操作者，该功能主要完成系统用户配置。 会员管理：可以管理前台注册的会员 订单管理：管理会员的订单。 菜单管理：配置系统菜单，操作权限，按钮权限标识等。 角色管理：角色菜单权限分配、设置角色按机构进行数据范围权限划分。 字典管理：对系统中经常使用的一些较为固定的数据进行维护，如：是否、男女、类别、级别等。 栏目管理：对后台设置的栏目进行管理 信息管理：对管理员发布的商品信息、视频信息以及其他信息进行管理 第三方支付对接：可以对支付宝、银联等支付方式对接
 
 技术选型
+
 后端
+
 核心框架：.net mvc
 
 前端
+
 JS框架：jQuery css框架：bootstrap
 
 环境
-开发工具：Microsoft Visual Studio 2010 操作系统：Windows Server 2008(推荐) 、Windows Server 2003(推荐)、Windows XP(基础测试环境) 数据库： Sql Server 2005(推荐)、Sql Server 2008(推荐) Web服务器：IIS 5.0及以上版本(推荐IIS7.0，应用池为集成模式) 环境要求：.NET Framework 4.x及以上
+
+开发工具：
+Microsoft Visual Studio 2010 
+操作系统：Windows Server 2008(推荐) 、Windows Server 2003(推荐)、Windows XP(基础测试环境) 
+数据库： Sql Server 2005(推荐)、Sql Server 2008(推荐) 
+Web服务器：IIS 5.0及以上版本(推荐IIS7.0，应用池为集成模式) 环境要求：.NET Framework 4.x及以上
 
 QQ群
+
 575193570(欢迎加入！)
