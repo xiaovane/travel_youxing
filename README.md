@@ -18,10 +18,12 @@ JS框架：jQuery css框架：bootstrap
 
 环境
 
-开发工具：
-Microsoft Visual Studio 2010 
+开发工具：Microsoft Visual Studio 2010 
+
 操作系统：Windows Server 2008(推荐) 、Windows Server 2003(推荐)、Windows XP(基础测试环境) 
+
 数据库： Sql Server 2005(推荐)、Sql Server 2008(推荐) 
+
 Web服务器：IIS 5.0及以上版本(推荐IIS7.0，应用池为集成模式) 环境要求：.NET Framework 4.x及以上
 
 QQ群
